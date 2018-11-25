@@ -16,3 +16,8 @@ FR -
 ## Lancement du serveur
 * `cd club_website`
 * `php bin/console server:run`
+
+## Architecture du code MVC
+* src/Controller : contrôleurs
+* src/Entity : modèle
+* templates : vue
