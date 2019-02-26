@@ -5,14 +5,41 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use App\Entity\Club;
 
 class HomeController extends AbstractController {
 
+    private $clubsRepository;
     /**
      * @Route("/")
      */
     public function welcome() {
         return $this->render('home.html.twig');
+    }
+
+    /**
+     * @Route("/getClubs")
+     */
+    public function getClubs() {
+        $this->clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $clubs = $this->clubsRepository->getAllClubs();
+        $jsonContentArray = array();
+
+        foreach($clubs as $club) {
+            $jsonContentArray[] = $serializer->serialize($club, 'json');
+        }
+
+        return new JsonResponse(array($jsonContentArray));
     }
 
     /**

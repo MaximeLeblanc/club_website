@@ -17,6 +17,12 @@ FR -
 * `cd club_website`
 * `php bin/console server:run`
 
+## Base de données
+* php bin/console doctrine:database:create
+* php bin/console make:migration
+* php bin/console doctrine:migrations:migrate
+* php bin/console make:entity --regenerate
+
 ## Architecture du code MVC
 * src/Controller : contrôleurs
 * src/Entity : modèle
