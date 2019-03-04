@@ -25,6 +25,16 @@ class Club {
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $instagram;
+
     public function getId() {
         return $this->id;
     }
@@ -47,6 +57,22 @@ class Club {
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    public function getFacebook() {
+        return $this->facebook;
+    }
+
+    public function setFacebook($facebook) {
+        $this->facebook = $facebook;
+    }
+
+    public function getInstagram() {
+        return $this->instagram;
+    }
+
+    public function setInstagram($instagram) {
+        $this->instagram = $instagram;
     }
 }
 ?>

@@ -1,79 +1,29 @@
 {# templates/home.html.twig #}
 {% extends 'common/base.html.twig' %}
-{% block javascripts %}
-<script src="{{ asset('js/home.js') }}"></script>
-{% endblock %}
 
 {% block body %}
 <div class="row mt-3">
-    <div class="col-12 col-sm-6 col-lg-4 my-3">
-        <div class="card h-100 card-hover">
-            <div class="card-header">Titre</div>
-            <a class="card-link h-100" href="https://www.google.com/">
-                <div class="card-body text-center text-dark">
-                    <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
-                    <br />
-                    Ceci est un texte.
+    {% for club in clubs %}
+        <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="card h-100 card-hover">
+                <div class="card-header">{{ club.name }}</div>
+                <a class="card-link h-100" href="https://www.google.com/">
+                    <div class="card-body text-center text-dark">
+                        <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
+                        <br />
+                        {{ club.description }}
+                    </div>
+                </a>
+                <div class="card-footer">
+                    {% if club.facebook %}
+                        <a class="card-link text-dark" href="{{ club.facebook }}"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
+                    {% endif %}
+                    {% if club.instagram %}
+                        <a class="card-link text-dark" href="{{ club.instagram }}"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+                    {% endif %}
                 </div>
-            </a>
-            <div class="card-footer">
-                <a class="card-link text-dark" href="https://www.facebook.com/"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
-                <a class="card-link text-dark" href="https://www.instagram.com/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
             </div>
         </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-4 my-3">
-        <div class="card h-100 card-hover">
-            <div class="card-header">Titre</div>
-            <a class="card-link h-100" href="https://www.google.com/">
-                <div class="card-body text-center text-dark">
-                    <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
-                    <br />
-                    Ceci est un texte.<br />
-                    Un peu long.<br />
-                    Beaucoup trop long.<br />
-                    Beaucoup beaucoup trop long.<br />
-                    Il dépasse.<br />
-                    Par rapport aux autres.<br />
-                </div>
-            </a>
-            <div class="card-footer">
-                <a class="card-link text-dark" href="https://www.facebook.com/"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
-                <a class="card-link text-dark" href="https://www.instagram.com/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-4 my-3">
-        <div class="card h-100 card-hover">
-            <div class="card-header">Titre</div>
-            <a class="card-link h-100" href="https://www.google.com/">
-                <div class="card-body text-center text-dark">
-                    <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
-                    <br />
-                    Ceci est un texte.
-                </div>
-            </a>
-            <div class="card-footer">
-                <a class="card-link text-dark" href="https://www.facebook.com/"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
-                <a class="card-link text-dark" href="https://www.instagram.com/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-4 my-3">
-        <div class="card h-100 card-hover">
-            <div class="card-header">Titre</div>
-            <a class="card-link h-100" href="https://www.google.com/">
-                <div class="card-body text-center text-dark">
-                    <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
-                    <br />
-                    Ceci est un texte.
-                </div>
-            </a>
-            <div class="card-footer">
-                <a class="card-link text-dark" href="https://www.facebook.com/"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
-                <a class="card-link text-dark" href="https://www.instagram.com/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

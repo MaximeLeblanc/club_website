@@ -19,7 +19,15 @@ class HomeController extends AbstractController {
      * @Route("/")
      */
     public function welcome() {
-        return $this->render('home.html.twig');
+        $this->clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $clubs = $this->clubsRepository->getAllClubs();
+        
+        return $this->render('home.html.twig', ['clubs' => $clubs]);
     }
 
     /**
