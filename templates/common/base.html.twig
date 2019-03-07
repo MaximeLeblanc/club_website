@@ -22,12 +22,14 @@
         {% block login %}
             {{ include('common/login.html.twig') }}
         {% endblock %}
-        <div class="row">
-            <div class="col-1 col-md-2"></div>
-            <div class="col-10 col-md-8">
-                {% block body %}{% endblock %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-1 col-md-2"></div>
+                <div class="col-10 col-md-8">
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="col-1 col-md-2"></div>
             </div>
-            <div class="col-1 col-md-2"></div>
         </div>
         {% block footer %}
             {{ include('common/footer.html.twig') }}

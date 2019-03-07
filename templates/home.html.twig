@@ -3,27 +3,57 @@
 
 {% block body %}
 <div class="row mt-3">
-    {% for club in clubs %}
-        <div class="col-12 col-sm-6 col-lg-4 my-3">
-            <div class="card h-100 card-hover">
-                <div class="card-header">{{ club.name }}</div>
-                <a class="card-link h-100" href="https://www.google.com/">
-                    <div class="card-body text-center text-dark">
-                        <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
-                        <br />
-                        {{ club.description }}
-                    </div>
-                </a>
-                <div class="card-footer">
-                    {% if club.facebook %}
-                        <a class="card-link text-dark" href="{{ club.facebook }}"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
-                    {% endif %}
-                    {% if club.instagram %}
-                        <a class="card-link text-dark" href="{{ club.instagram }}"><i class="fa fa-instagram" style="font-size:24px"></i></a>
-                    {% endif %}
+    <div class="col-12 col-md-6">
+        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner img-thumbnail">
+                <div class="carousel-item active">
+                    <img class="d-block img-responsive w-100" src="{{ asset('images/homeCarousel/carousel1.jpg') }}" alt="Photo 1">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block img-responsive w-100" src="{{ asset('images/homeCarousel/carousel2.jpg') }}" alt="Photo 2">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block img-responsive w-100" src="{{ asset('images/homeCarousel/carousel3.webp') }}" alt="Photo 3">
                 </div>
             </div>
+            <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-    {% endfor %}
+        <div class="homeCarouselText">
+            Je teste.
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="row">
+            {% for club in clubs %}
+                <div class="col-12 col-sm-6 my-3">
+                    <div class="card h-100 card-hover">
+                        <div class="card-header">{{ club.name }}</div>
+                        <a class="card-link h-100" href="https://www.google.com/">
+                            <div class="card-body text-center text-dark">
+                                <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
+                                <br />
+                                {{ club.description }}
+                            </div>
+                        </a>
+                        <div class="card-footer">
+                            {% if club.facebook %}
+                                <a class="card-link text-dark" href="{{ club.facebook }}"><i class="fa fa-facebook-square" style="font-size:24px"></i></a>
+                            {% endif %}
+                            {% if club.instagram %}
+                                <a class="card-link text-dark" href="{{ club.instagram }}"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}
