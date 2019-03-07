@@ -15,6 +15,7 @@ use App\Entity\Club;
 class HomeController extends AbstractController {
 
     private $clubsRepository;
+
     /**
      * @Route("/")
      */
@@ -28,6 +29,13 @@ class HomeController extends AbstractController {
         $clubs = $this->clubsRepository->getAllClubs();
         
         return $this->render('home.html.twig', ['clubs' => $clubs]);
+    }
+
+    /**
+     * @Route("/wip")
+     */
+    public function wip() {
+        return $this->render('wip.html.twig');
     }
 
     /**
