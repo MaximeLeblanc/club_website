@@ -7,28 +7,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\Club;
+use App\Entity\HomeImage;
 
 class HomeController extends AbstractController {
-
-    private $clubsRepository;
 
     /**
      * @Route("/")
      */
     public function welcome() {
-        $this->clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+        $clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+        $clubs = $clubsRepository->getAllClubs();
 
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $clubs = $this->clubsRepository->getAllClubs();
+        $homeImagesRepository = $this->getDoctrine()->getRepository(HomeImage::class);
+        $images = $homeImagesRepository->getAllImages();
         
-        return $this->render('home.html.twig', ['clubs' => $clubs]);
+        return $this->render('home.html.twig', ['images' => $images, 'clubs' => $clubs]);
     }
 
     /**
@@ -38,25 +32,25 @@ class HomeController extends AbstractController {
         return $this->render('wip.html.twig');
     }
 
-    /**
-     * @Route("/getClubs")
-     */
-    public function getClubs() {
-        $this->clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+    // /**
+    //  * @Route("/getClubs")
+    //  */
+    // public function getClubs() {
+    //     $this->clubsRepository = $this->getDoctrine()->getRepository(Club::class);
 
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
+    //     $encoders = [new JsonEncoder()];
+    //     $normalizers = [new ObjectNormalizer()];
+    //     $serializer = new Serializer($normalizers, $encoders);
 
-        $clubs = $this->clubsRepository->getAllClubs();
-        $jsonContentArray = array();
+    //     $clubs = $this->clubsRepository->getAllClubs();
+    //     $jsonContentArray = array();
 
-        foreach($clubs as $club) {
-            $jsonContentArray[] = $serializer->serialize($club, 'json');
-        }
+    //     foreach($clubs as $club) {
+    //         $jsonContentArray[] = $serializer->serialize($club, 'json');
+    //     }
 
-        return new JsonResponse(array($jsonContentArray));
-    }
+    //     return new JsonResponse(array($jsonContentArray));
+    // }
 
     /**
      * @Route("/", name="connect")
