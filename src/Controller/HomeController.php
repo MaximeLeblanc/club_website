@@ -22,7 +22,10 @@ class HomeController extends AbstractController {
         $homeImagesRepository = $this->getDoctrine()->getRepository(HomeImage::class);
         $images = $homeImagesRepository->getAllImages();
         
-        return $this->render('home.html.twig', ['images' => $images, 'clubs' => $clubs]);
+        return $this->render('home.html.twig', [
+            'images' => $images,
+            'clubs' => $clubs
+        ]);
     }
 
     /**
@@ -51,15 +54,5 @@ class HomeController extends AbstractController {
 
     //     return new JsonResponse(array($jsonContentArray));
     // }
-
-    /**
-     * @Route("/", name="connect")
-     */
-    public function connect(AuthenticationUtils $authenticationUtils) {
-        // get the login error if there is one
-        // $error = $authenticationUtils->getLastAuthenticationError();
-        
-        return $this->render('administration/administrationHome.html.twig');
-    }
 }
 ?>
