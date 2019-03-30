@@ -59,10 +59,11 @@ class User implements UserInterface {
      * @see UserInterface
      */
     public function getRoles(): array {
-        $roles = $this->roles;
-        $roles[] = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
-
-        return array_unique($roles);
+        if (empty($this->roles)) {
+            $this->roles[] = 'ROLE_USER';
+        }
+        
+        return array_unique($this->roles);
     }
 
     public function setRoles(array $roles): self {

@@ -16,10 +16,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator {
-    use TargetPathTrait;
 
     private $entityManager;
     private $router;
@@ -61,7 +59,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator {
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
@@ -73,7 +70,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator {
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
-        return new RedirectResponse($this->urlGenerator->generate('administrationHome'));
+        return new RedirectResponse($this->router->generate('administrationHome'));
     }
 
     protected function getLoginUrl() {
