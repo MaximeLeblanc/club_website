@@ -1,0 +1,14 @@
+{# templates/administration/administrationAdmin.html.twig #}
+{% extends 'common/base.html.twig' %}
+
+{% block navbar %}
+    {{ include('administration/administrationNavbar.html.twig') }}
+{% endblock %}
+{% block body %}
+    <div class="text-center">
+        <h3>Gestion des administrateurs</h3>
+    </div>
+    {% for administrateur in administrateurs %}
+        <p>{{ administrateur.email }} {{ administrateur.roles|first }}</p>
+    {% endfor %}
+{% endblock %}

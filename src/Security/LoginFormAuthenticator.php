@@ -53,13 +53,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator {
     public function getUser($credentials, UserProviderInterface $userProvider) {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
+            throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrect.');
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrect.');
         }
 
         return $user;

@@ -1,6 +1,9 @@
 {# templates/administration/administrationHome.html.twig #}
 {% extends 'common/base.html.twig' %}
 
+{% block navbar %}
+    {{ include('administration/administrationNavbar.html.twig') }}
+{% endblock %}
 {% block body %}
 <div class="text-center">
     Hello !

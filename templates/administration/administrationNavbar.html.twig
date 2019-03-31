@@ -1,0 +1,32 @@
+{# templates/administration/administrationNavbar.html.twig #}
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">Retour sur le site</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/administration/admin">Gestion des administrateurs</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/wip">Gestion des clubs</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/wip">Gestion des athlètes</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/wip">Gestion de l'accueil</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

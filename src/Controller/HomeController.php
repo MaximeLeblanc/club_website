@@ -13,9 +13,11 @@ use App\Entity\HomeImage;
 class HomeController extends AbstractController {
 
     /**
-     * @Route("/")
+     * @Route("/", name="home")
      */
     public function welcome() {
+        // $this->get('security.token_storage')->setToken(NULL);
+
         $clubsRepository = $this->getDoctrine()->getRepository(Club::class);
         $clubs = $clubsRepository->getAllClubs();
 
@@ -29,7 +31,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/wip")
+     * @Route("/wip", name="wip")
      */
     public function wip() {
         return $this->render('wip.html.twig');

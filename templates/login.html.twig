@@ -10,13 +10,13 @@
         <div class="login-form">
             <form method="post">
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="alert alert-danger">Email ou mot de passe invalide.</div>
                 {% endif %}
                 <h2 class="text-center">Connexion</h2>   
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        <input type="text" class="form-control" name="email" placeholder="Email" required="required">				
+                        <input type="text" class="form-control" name="email" placeholder="Email" required="required" value="{{ email }}">				
                     </div>
                 </div>
                 <div class="form-group">
