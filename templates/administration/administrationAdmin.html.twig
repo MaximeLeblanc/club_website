@@ -8,7 +8,52 @@
     <div class="text-center">
         <h3>Gestion des administrateurs</h3>
     </div>
-    {% for administrateur in administrateurs %}
-        <p>{{ administrateur.email }} {{ administrateur.roles|first }}</p>
-    {% endfor %}
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for administrateur in administrateurs %}
+            <tr>
+                <td>{{ administrateur.email }}</td>
+                <td>{{ administrateur.roles|first }}</td>
+            </tr> 
+        {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-dark"><i class="fas fa-plus" style="font-size:16px"></i></button>
+    <div class="row" id="addAdministrateur">
+        <div class="col-1 col-md-2"></div>
+        <div class="col-10 col-md-8">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                    <label for="addAdministrateurEmail">Email</label>
+                                    <input type="email" class="form-control" id="addAdministrateurEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAdministrateurPassword">Mot de passe</label>
+                                    <input type="password" class="form-control" id="addAdministrateurPassword" placeholder="Mot de passe">
+                                </div>
+                                <div class="form-group">
+                                    <select id="addAdministrateurRole" class="form-control">
+                                        <option selected>Administrateur</option>
+                                        <option>Super Administrateur</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-dark">Ajouter</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1 col-md-2"></div>
+    </div>
 {% endblock %}
