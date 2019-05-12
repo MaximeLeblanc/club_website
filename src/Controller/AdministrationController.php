@@ -33,8 +33,40 @@ class AdministrationController extends AbstractController {
         $admins = $adminRepository->getAllUsers();
 
         return $this->render('administration/administrationAdmin.html.twig', [
-            'administrateurs' => $admins
+            'administrators' => $admins
         ]);
+    }
+
+    /**
+     * @Route("/addAdministrator")
+     */
+    public function addAdministrator(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $name = $request->get('name');
+        $lastName = $request->get('lastName');
+        $email = $request->get('email');
+        $role = $request->get('role');
+        if ($role == "Super administrateur") {
+            $role = "ROLE_SUPER_ADMIN";
+        } else if ($role == "Administrateur") {
+            $role = "ROLE_ADMIN";
+        } else {
+            $role = "ROLE_USER";
+        }
+        
+        $user = new User();
+        $user->setName($name);
+        $user->setLastName($lastName);
+        $user->setEmail($email);
+        $user->setRole($role);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Send email to create a password
+
+        return new JsonResponse(array($jsonContentArray));
     }
 }
 ?>

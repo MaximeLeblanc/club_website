@@ -27,10 +27,24 @@ class User implements UserInterface {
     private $roles = [];
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
 
     public function getId(): ?int {
         return $this->id;
@@ -81,6 +95,36 @@ class User implements UserInterface {
 
     public function setPassword(string $password): self {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getName(): string {
+        return (string) $this->name;
+    }
+
+    public function setName(string $name): self {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getLastName(): string {
+        return (string) $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getPhoto(): string {
+        return (string) $this->photo;
+    }
+
+    public function setPhoto(string $photo): self {
+        $this->photo = $photo;
 
         return $this;
     }

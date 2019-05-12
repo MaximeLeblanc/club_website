@@ -1,6 +1,9 @@
 {# templates/administration/administrationAdmin.html.twig #}
 {% extends 'common/base.html.twig' %}
-
+{% block javascripts %}
+    <script src="{{ asset('js/administration/clickAddAdministrator.js') }}"></script>
+    <script src="{{ asset('js/administration/clickAddAdministratorButton.js') }}"></script>
+{% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
@@ -10,22 +13,45 @@
     </div>
     <table class="table table-bordered">
         <thead class="thead-dark">
-          <tr>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-          </tr>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Actions</th>
+            </tr>
         </thead>
         <tbody>
-        {% for administrateur in administrateurs %}
+        {% for administrator in administrators %}
             <tr>
-                <td>{{ administrateur.email }}</td>
-                <td>{{ administrateur.roles|first }}</td>
+                <td>{{ administrator.lastName }}</td>
+                <td>{{ administrator.name }}</td>
+                <td>{{ administrator.email }}</td>
+                <td>{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
+                    Super administrateur
+                    {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
+                    Administrateur
+                    {% elseif (administrator.roles|first) == "ROLE_USER" %}
+                    Utilisateur
+                    {% endif %}
+                </td>
+                <td>{% if administrator.photo %}
+                    <img class="d-block img-responsive" src="{{ asset(administrator.photo) }}">
+                    {% endif %}
+                </td>
+                <td>
+                    <i id="edit{{ administrator.id }}" class="fas fa-edit float-left" style="font-size:24px" data-toggle="tooltip" title="Modifier"></i>
+                    <i id="delete{{ administrator.id }}" class="fas fa-times float-right" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
+                </td>
             </tr> 
         {% endfor %}
         </tbody>
     </table>
-    <button type="button" class="btn btn-dark"><i class="fas fa-plus" style="font-size:16px"></i></button>
-    <div class="row" id="addAdministrateur">
+    <div class="btn btn-dark" id="clickAddAdministrator">
+        <i class="fas fa-plus" style="font-size:16px"></i>
+    </div>
+    <div class="row d-none" id="addAdministrator">
         <div class="col-1 col-md-2"></div>
         <div class="col-10 col-md-8">
             <table class="table table-bordered">
@@ -34,20 +60,25 @@
                         <td>
                             <form>
                                 <div class="form-group">
-                                    <label for="addAdministrateurEmail">Email</label>
-                                    <input type="email" class="form-control" id="addAdministrateurEmail" placeholder="Email">
+                                    <label for="addAdministratorName">Prénom</label>
+                                    <input type="input" class="form-control" id="addAdministratorName" placeholder="Prénom">
                                 </div>
                                 <div class="form-group">
-                                    <label for="addAdministrateurPassword">Mot de passe</label>
-                                    <input type="password" class="form-control" id="addAdministrateurPassword" placeholder="Mot de passe">
+                                    <label for="addAdministratorLastName">Nom</label>
+                                    <input type="input" class="form-control" id="addAdministratorLastName" placeholder="Nom">
                                 </div>
                                 <div class="form-group">
-                                    <select id="addAdministrateurRole" class="form-control">
+                                    <label for="addAdministratorEmail">Email</label>
+                                    <input type="email" class="form-control" id="addAdministratorEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAdministratorRole">Role</label>
+                                    <select id="addAdministratorRole" class="form-control">
                                         <option selected>Administrateur</option>
                                         <option>Super Administrateur</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-dark">Ajouter</button>
+                                <div class="btn btn-dark" id="addAdministratorButton">Ajouter</div>
                             </form>
                         </td>
                     </tr>
