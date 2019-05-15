@@ -59,14 +59,13 @@ class AdministrationController extends AbstractController {
         $user->setName($name);
         $user->setLastName($lastName);
         $user->setEmail($email);
-        $user->setRole($role);
+        $user->setPassword(uniqid());
+        $user->addRole($role);
 
         $entityManager->persist($user);
         $entityManager->flush();
 
         // Send email to create a password
-
-        return new JsonResponse(array($jsonContentArray));
     }
 }
 ?>

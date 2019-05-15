@@ -42,7 +42,7 @@ class User implements UserInterface {
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
 
@@ -82,6 +82,12 @@ class User implements UserInterface {
 
     public function setRoles(array $roles): self {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function addRole(string $role): self {
+        array_push($this->roles, $role);
 
         return $this;
     }
