@@ -7,6 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\User;
 
 class AdministrationController extends AbstractController {
@@ -43,13 +47,17 @@ class AdministrationController extends AbstractController {
     public function addAdministrator(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
         $name = $request->get('name');
         $lastName = $request->get('lastName');
         $email = $request->get('email');
         $role = $request->get('role');
-        if ($role == "Super administrateur") {
+        if ($role == "Administrateur") {
             $role = "ROLE_SUPER_ADMIN";
-        } else if ($role == "Administrateur") {
+        } else if ($role == "Coach") {
             $role = "ROLE_ADMIN";
         } else {
             $role = "ROLE_USER";
@@ -62,10 +70,39 @@ class AdministrationController extends AbstractController {
         $user->setPassword(uniqid());
         $user->addRole($role);
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+        try {
+            $entityManager->persist($user);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new Response($e);
+        }
+        
+        $jsonUser[] = $serializer->serialize($user, 'json');
 
         // Send email to create a password
+        return new JsonResponse($jsonUser);
+    }
+
+    /**
+     * @Route("/deleteAdministrator")
+     */
+    public function deleteAdministrator(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $id = $request->get('id');
+
+        $user = $userRepository->find($id);
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $jsonUser[] = $serializer->serialize($user, 'json');
+        return new JsonResponse($jsonUser);
     }
 }
 ?>

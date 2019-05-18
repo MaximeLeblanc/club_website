@@ -1,8 +1,14 @@
 {# templates/administration/administrationAdmin.html.twig #}
 {% extends 'common/base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
+{% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/administration/clickAddAdministrator.js') }}"></script>
     <script src="{{ asset('js/administration/clickAddAdministratorButton.js') }}"></script>
+    <script src="{{ asset('js/administration/clickCancelAdministratorButton.js') }}"></script>
+    <script src="{{ asset('js/administration/clickEditAdministrator.js') }}"></script>
+    <script src="{{ asset('js/administration/clickDeleteAdministrator.js') }}"></script>
 {% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
@@ -11,7 +17,7 @@
     <div class="text-center">
         <h3>Gestion des administrateurs</h3>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="userTable">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Nom</th>
@@ -24,14 +30,14 @@
         </thead>
         <tbody>
         {% for administrator in administrators %}
-            <tr>
+            <tr id="row{{ administrator.id }}">
                 <td>{{ administrator.lastName }}</td>
                 <td>{{ administrator.name }}</td>
                 <td>{{ administrator.email }}</td>
                 <td>{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
-                    Super administrateur
-                    {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
                     Administrateur
+                    {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
+                    Coach
                     {% elseif (administrator.roles|first) == "ROLE_USER" %}
                     Utilisateur
                     {% endif %}
@@ -41,8 +47,8 @@
                     {% endif %}
                 </td>
                 <td>
-                    <i id="edit{{ administrator.id }}" class="fas fa-edit float-left" style="font-size:24px" data-toggle="tooltip" title="Modifier"></i>
-                    <i id="delete{{ administrator.id }}" class="fas fa-times float-right" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
+                    <i id="{{ administrator.id }}" class="fas fa-edit float-left editAdministrator" style="font-size:24px" data-toggle="tooltip" title="Modifier"></i>
+                    <i id="{{ administrator.id }}" class="fas fa-times float-right deleteAdministrator" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
                 </td>
             </tr> 
         {% endfor %}
@@ -74,11 +80,18 @@
                                 <div class="form-group">
                                     <label for="addAdministratorRole">Role</label>
                                     <select id="addAdministratorRole" class="form-control">
-                                        <option selected>Administrateur</option>
-                                        <option>Super Administrateur</option>
+                                        <option selected>Coach</option>
+                                        <option>Administrateur</option>
                                     </select>
                                 </div>
-                                <div class="btn btn-dark" id="addAdministratorButton">Ajouter</div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="btn btn-dark float-left" id="addAdministratorButton">Ajouter</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="btn btn-dark float-right" id="cancelAdministratorButton">Annuler</div>
+                                    </div>
+                                </div>
                             </form>
                         </td>
                     </tr>
