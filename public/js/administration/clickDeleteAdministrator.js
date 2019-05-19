@@ -1,6 +1,5 @@
-$(function() {
-    $('.deleteAdministrator').click(function() {
-        var id = this.id;
+$(document).on('click', '.deleteAdministrator', function(){ 
+    var id = this.id;
         $.ajax({
             url: "/deleteAdministrator",
             type: "post",
@@ -13,5 +12,4 @@ $(function() {
                 alert("La suppression n'est pas encore implémentée");
             }
         });
-    });
 });
