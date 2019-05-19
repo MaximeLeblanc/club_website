@@ -1,4 +1,4 @@
-$(document).on('click', '.deleteAdministrator', function(){ 
+$(document).on('click', '.deleteAdministrator', function(){
     var id = this.id;
         $.ajax({
             url: "/deleteAdministrator",

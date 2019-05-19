@@ -84,6 +84,48 @@ class AdministrationController extends AbstractController {
     }
 
     /**
+     * @Route("/editAdministrator")
+     */
+    public function editAdministrator(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $lastName = $request->get('lastName');
+        $email = $request->get('email');
+        $role = $request->get('role');
+        if ($role == "Administrateur") {
+            $role = "ROLE_SUPER_ADMIN";
+        } else if ($role == "Coach") {
+            $role = "ROLE_ADMIN";
+        } else {
+            $role = "ROLE_USER";
+        }
+        
+        $user = $userRepository->find($id);
+        $user->setName($name);
+        $user->setLastName($lastName);
+        $user->setEmail($email);
+        $user->setPassword(uniqid());
+        $user->addRole($role);
+
+        try {
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new Response($e);
+        }
+        
+        $jsonUser[] = $serializer->serialize($user, 'json');
+
+        // Send email to create a password
+        return new JsonResponse($jsonUser);
+    }
+
+    /**
      * @Route("/deleteAdministrator")
      */
     public function deleteAdministrator(Request $request) {

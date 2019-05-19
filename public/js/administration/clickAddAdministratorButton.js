@@ -14,13 +14,13 @@ $(function() {
                 $('#addAdministrator').addClass('d-none');
                 $('#clickAddAdministrator').removeClass('d-none');
                 $('#userTable tbody').append("<tr id=\"row" + user.id + "\">" +
-                    "<td>" + user.lastName + "</td>" +
-                    "<td>" + user.name + "</td>" +
-                    "<td>" + user.email + "</td>" +
-                    "<td>" + 
+                    "<td id =\"lastName" + user.id + "\">" + user.lastName + "</td>" +
+                    "<td id =\"name" + user.id + "\">" + user.name + "</td>" +
+                    "<td id =\"email" + user.id + "\">" + user.email + "</td>" +
+                    "<td id =\"role" + user.id + "\">" + 
                         ((user.roles[0] == "ROLE_SUPER_ADMIN") ? "Administrateur" : ((user.roles[0] == "ROLE_ADMIN") ? "Coach" : "Utilisateur")) +
                     "</td>" +
-                    "<td>" +
+                    "<td id =\"photo" + user.id + "\">" +
                         ((user.photo != null && user.photo != "") ? "<img class=\"d-block img-responsive\" src=\"{{ asset(" + user.photo + ") }}\">" : "") +
                     "</td>" +
                     "<td>" +

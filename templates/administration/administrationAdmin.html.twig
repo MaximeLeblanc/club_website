@@ -31,10 +31,10 @@
         <tbody>
         {% for administrator in administrators %}
             <tr id="row{{ administrator.id }}">
-                <td>{{ administrator.lastName }}</td>
-                <td>{{ administrator.name }}</td>
-                <td>{{ administrator.email }}</td>
-                <td>{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
+                <td id ="lastName{{ administrator.id }}">{{ administrator.lastName }}</td>
+                <td id ="name{{ administrator.id }}">{{ administrator.name }}</td>
+                <td id ="email{{ administrator.id }}">{{ administrator.email }}</td>
+                <td id ="role{{ administrator.id }}">{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
                     Administrateur
                     {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
                     Coach
@@ -42,7 +42,7 @@
                     Utilisateur
                     {% endif %}
                 </td>
-                <td>{% if administrator.photo %}
+                <td id ="photo{{ administrator.id }}">{% if administrator.photo %}
                     <img class="d-block img-responsive" src="{{ asset(administrator.photo) }}">
                     {% endif %}
                 </td>
@@ -64,6 +64,7 @@
                 <tbody>
                     <tr>
                         <td>
+                            <h5 class="text-center">Ajouter un administrateur</h5>
                             <form>
                                 <div class="form-group">
                                     <label for="addAdministratorName">Prénom</label>
@@ -80,8 +81,8 @@
                                 <div class="form-group">
                                     <label for="addAdministratorRole">Role</label>
                                     <select id="addAdministratorRole" class="form-control">
-                                        <option selected>Coach</option>
-                                        <option>Administrateur</option>
+                                        <option value="Coach" selected>Coach</option>
+                                        <option value="Administrateur">Administrateur</option>
                                     </select>
                                 </div>
                                 <div class="row">
@@ -90,6 +91,51 @@
                                     </div>
                                     <div class="col">
                                         <div class="btn btn-dark float-right" id="cancelAdministratorButton">Annuler</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1 col-md-2"></div>
+    </div>
+    <div class="row d-none" id="editAdministrator">
+        <div class="col-1 col-md-2"></div>
+        <div class="col-10 col-md-8">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h5 class="text-center">Modifier un administrateur</h5>
+                            <form>
+                                <input type="input" class="d-none" id="editAdministratorId">
+                                <div class="form-group">
+                                    <label for="editAdministratorName">Prénom</label>
+                                    <input type="input" class="form-control" id="editAdministratorName" placeholder="Prénom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editAdministratorLastName">Nom</label>
+                                    <input type="input" class="form-control" id="editAdministratorLastName" placeholder="Nom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editAdministratorEmail">Email</label>
+                                    <input type="email" class="form-control" id="editAdministratorEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editAdministratorRole">Role</label>
+                                    <select id="editAdministratorRole" class="form-control">
+                                        <option value="Coach" selected>Coach</option>
+                                        <option value="Administrateur">Administrateur</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="btn btn-dark float-left" id="editAdministratorButton">Modifier</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="btn btn-dark float-right" id="cancelEditAdministratorButton">Annuler</div>
                                     </div>
                                 </div>
                             </form>
