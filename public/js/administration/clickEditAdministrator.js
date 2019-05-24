@@ -19,6 +19,10 @@ $(function() {
                 var user = $.parseJSON(response);
                 $('#addAdministrator').addClass('d-none');
                 $('#clickAddAdministrator').removeClass('d-none');
+                $('#lastName' + user.id).text(user.lastName);
+                $('#name' + user.id).text(user.name);
+                $('#email' + user.id).text(user.email);
+                $('#role' + user.id).text(((user.roles[0] == "ROLE_SUPER_ADMIN") ? "Administrateur" : ((user.roles[0] == "ROLE_ADMIN") ? "Coach" : "Utilisateur")));
             },
             error: function() {
                alert("Erreur lors de la création de l'administrateur !");
