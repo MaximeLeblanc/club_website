@@ -17,7 +17,7 @@ $(function() {
             dataType: "json",
             success: function(response) {
                 var user = $.parseJSON(response);
-                $('#addAdministrator').addClass('d-none');
+                $('#editAdministrator').addClass('d-none');
                 $('#clickAddAdministrator').removeClass('d-none');
                 $('#lastName' + user.id).text(user.lastName);
                 $('#name' + user.id).text(user.name);

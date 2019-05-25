@@ -86,7 +86,8 @@ class User implements UserInterface {
         return $this;
     }
 
-    public function addRole(string $role): self {
+    public function setRole(string $role): self {
+        $this->roles = array();
         array_push($this->roles, $role);
 
         return $this;

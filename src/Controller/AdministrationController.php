@@ -88,6 +88,7 @@ class AdministrationController extends AbstractController {
      */
     public function editAdministrator(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
@@ -98,9 +99,9 @@ class AdministrationController extends AbstractController {
         $lastName = $request->get('lastName');
         $email = $request->get('email');
         $role = $request->get('role');
-        if ($role == "Administrateur") {
+        if ($role === "Administrateur") {
             $role = "ROLE_SUPER_ADMIN";
-        } else if ($role == "Coach") {
+        } else if ($role === "Coach") {
             $role = "ROLE_ADMIN";
         } else {
             $role = "ROLE_USER";
@@ -111,7 +112,7 @@ class AdministrationController extends AbstractController {
         $user->setLastName($lastName);
         $user->setEmail($email);
         $user->setPassword(uniqid());
-        $user->addRole($role);
+        $user->setRole($role);
 
         try {
             $entityManager->flush();
