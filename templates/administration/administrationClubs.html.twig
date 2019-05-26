@@ -1,0 +1,131 @@
+{# templates/administration/administrationAdmin.html.twig #}
+{% extends 'common/base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/administration/clickAddAdministrator.js') }}"></script>
+    <script src="{{ asset('js/administration/clickAddAdministratorButton.js') }}"></script>
+    <script src="{{ asset('js/administration/clickCancelAdministratorButton.js') }}"></script>
+    <script src="{{ asset('js/administration/clickEditAdministrator.js') }}"></script>
+    <script src="{{ asset('js/administration/clickDeleteAdministrator.js') }}"></script>
+{% endblock %}
+{% block navbar %}
+    {{ include('administration/administrationNavbar.html.twig') }}
+{% endblock %}
+{% block body %}
+    <div class="text-center">
+        <h3>Gestion des clubs</h3>
+    </div>
+    <div class="row">
+        {% for club in clubs %}
+            <div class="col-12 col-sm-6 my-3">
+                <div class="card h-100 card-hover">
+                    <div class="card-header">{{ club.name }}</div>
+                    <a class="card-link h-100" href="https://www.google.com/">
+                        <div class="card-body text-center text-dark">
+                            <img class="card-img-top rounded-circle w-50" src="{{ asset('images/img.png') }}" alt="Image">
+                            <br />
+                            {{ club.city }}
+                            <br />
+                            {{ club.address }}
+                            <br />
+                            {{ club.description }}
+                        </div>
+                    </a>
+                    <div class="card-footer">
+                        {% if club.facebook %}
+                            <a class="card-link text-dark" href="{{ club.facebook }}" target="_blank"><i class="fab fa-facebook-square" style="font-size:24px"></i></a>
+                        {% endif %}
+                        {% if club.instagram %}
+                            <a class="card-link text-dark" href="{{ club.instagram }}" target="_blank"><i class="fab fa-instagram" style="font-size:24px"></i></a>
+                        {% endif %}
+                        {% if club.twitter %}
+                            <a class="card-link text-dark" href="{{ club.twitter }}" target="_blank"><i class="fab fa-twitter" style="font-size:24px"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-12 col-sm-6 my-3">
+            <div class="btn btn-dark" id="clickAddClub">
+                <i class="fas fa-plus plusButton"></i>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 my-3">
+            <div class="card h-100">
+                <form>
+                    <div class="card-header">
+                        <div class="form-group row">
+                            <label class="col-form-label col-3" for="addClubName">Nom</label>
+                            <div class="col-9">
+                                <input type="input" class="form-control" id="addClubName" placeholder="Nom du club">
+                            </div>
+                        </div>
+                    </div>
+                        <div class="card-body text-center text-dark">
+                            Image
+                            <div class="form-group row">
+                                <label class="col-form-label col-3" for="addClubAddress">Adresse</label>
+                                <div class="col-9">
+                                    <input type="input" class="form-control" id="addClubAddress" placeholder="Adresse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-3" for="addClubCity">Ville</label>
+                                <div class="col-9">
+                                    <input type="input" class="form-control" id="addClubCity" placeholder="Ville">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-3" for="addClubEmail">Email</label>
+                                <div class="col-9">
+                                    <input type="email" class="form-control" id="addClubEmail" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-3" for="addClubCoach">Coach</label>
+                                <div class="col-9">
+                                    <select id="addClubCoach" class="form-control">
+                                        <option value="" selected></option>
+                                        {% for administrator in administrators %}
+                                            <option value="{{ administrator.id }}">{{ administrator.lastName }} {{ administrator.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addClubFacebookLogo"><i class="fab fa-facebook-square socialMediaButton"></i></span>
+                            </div>
+                            <input type="input" class="form-control" id="addClubFacebook" placeholder="Lien facebook" aria-describedby="addClubFacebookLogo">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addClubInstagramLogo"><i class="fab fa-instagram socialMediaButton"></i></span>
+                            </div>
+                            <input type="input" class="form-control" id="addClubInstagram" placeholder="Lien instagram" aria-describedby="addClubInstagramLogo">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addClubTwitterLogo"><i class="fab fa-twitter twitterButton"></i></span>
+                            </div>
+                            <input type="input" class="form-control" id="addClubTwitter" placeholder="Lien twitter" aria-describedby="addClubTwitterLogo">
+                        </div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <div class="btn btn-dark float-left" id="addClubButton">Ajouter</div>
+                            </div>
+                            <div class="col">
+                                <div class="btn btn-dark float-right" id="cancelAddClubButton">Annuler</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

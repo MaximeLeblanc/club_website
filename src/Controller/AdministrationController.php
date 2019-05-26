@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\User;
+use App\Entity\Club;
 
 class AdministrationController extends AbstractController {
 
@@ -26,7 +27,7 @@ class AdministrationController extends AbstractController {
     }
 
     /**
-     * @Route("/administration/admin", name="administrationAdmin")
+     * @Route("/administration/admins", name="administrationAdmins")
      */
     public function administrationAdmin() {
         if (!$this->isGranted('ROLE_ADMIN')) {
@@ -37,6 +38,26 @@ class AdministrationController extends AbstractController {
         $admins = $adminRepository->getAllUsers();
 
         return $this->render('administration/administrationAdmin.html.twig', [
+            'administrators' => $admins
+        ]);
+    }
+
+    /**
+     * @Route("/administration/clubs", name="administrationClubs")
+     */
+    public function administrationClub() {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('home');
+        }
+
+        $adminRepository = $this->getDoctrine()->getRepository(User::class);
+        $admins = $adminRepository->getAllUsers();
+
+        $clubsRepository = $this->getDoctrine()->getRepository(Club::class);
+        $clubs = $clubsRepository->getAllClubs();
+
+        return $this->render('administration/administrationClubs.html.twig', [
+            'clubs' => $clubs,
             'administrators' => $admins
         ]);
     }
@@ -68,7 +89,7 @@ class AdministrationController extends AbstractController {
         $user->setLastName($lastName);
         $user->setEmail($email);
         $user->setPassword(uniqid());
-        $user->addRole($role);
+        $user->setRole($role);
 
         try {
             $entityManager->persist($user);
