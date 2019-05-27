@@ -4,11 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/administration/clickAddAdministrator.js') }}"></script>
-    <script src="{{ asset('js/administration/clickAddAdministratorButton.js') }}"></script>
-    <script src="{{ asset('js/administration/clickCancelAdministratorButton.js') }}"></script>
-    <script src="{{ asset('js/administration/clickEditAdministrator.js') }}"></script>
-    <script src="{{ asset('js/administration/clickDeleteAdministrator.js') }}"></script>
+    <script src="{{ asset('js/administration/addClub.js') }}"></script>
 {% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
@@ -64,7 +60,8 @@
                         </div>
                     </div>
                         <div class="card-body text-center text-dark">
-                            Image
+                            <div id="addClubImage"></div>
+                            <input type="file" class="btn btn-dark mb-3">
                             <div class="form-group row">
                                 <label class="col-form-label col-3" for="addClubAddress">Adresse</label>
                                 <div class="col-9">
