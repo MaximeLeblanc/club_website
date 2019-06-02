@@ -18,10 +18,15 @@ body {
     font-size: 16px;
 }
 
-.socialMediaButton {
+.facebookIcon, .instagramIcon {
     font-size: 24px;
 }
 
-.twitterButton {
+.twitterIcon {
     font-size: 21px;
+}
+
+.fa-disabled {
+    opacity: 0.6;
+    pointer-events: none;
 }

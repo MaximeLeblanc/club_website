@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/administration/addClub.js') }}"></script>
+    <script src="{{ asset('js/administration/club.js') }}"></script>
 {% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         {% for club in clubs %}
-            <div class="col-12 col-sm-6 my-3">
+            <div class="col-12 col-lg-6 my-3">
                 <div class="card h-100 card-hover">
                     <div class="card-header">{{ club.name }}</div>
                     <a class="card-link h-100" href="https://www.google.com/">
@@ -43,82 +43,77 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="col-12 col-sm-6 my-3">
+        <div class="col-12 col-lg-6 my-3">
             <div class="btn btn-dark" id="clickAddClub">
                 <i class="fas fa-plus plusButton"></i>
             </div>
         </div>
-        <div class="col-12 col-sm-6 my-3">
+        <div id="addClubCard" class="col-12 col-lg-6 my-3 d-none">
             <div class="card h-100">
                 <form>
                     <div class="card-header">
-                        <div class="form-group row">
-                            <label class="col-form-label col-3" for="addClubName">Nom</label>
-                            <div class="col-9">
-                                <input type="input" class="form-control" id="addClubName" placeholder="Nom du club">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addClubNameLogo"><i class="fas fa-address-card"></i></span>
                             </div>
+                            <input type="input" class="form-control" id="addClubName" placeholder="Nom du club" aria-describedby="addClubNameLogo">
+                            <div class="btn btn-dark clubButton" id="addClubButton"><i class="fas fa-check"></i></div>
+                            <div class="btn btn-dark clubButton" id="cancelAddClubButton"><i class="fas fa-times"></i></div>
                         </div>
                     </div>
                         <div class="card-body text-center text-dark">
                             <div id="addClubImage"></div>
-                            <input type="file" class="btn btn-dark mb-3">
-                            <div class="form-group row">
-                                <label class="col-form-label col-3" for="addClubAddress">Adresse</label>
-                                <div class="col-9">
-                                    <input type="input" class="form-control" id="addClubAddress" placeholder="Adresse">
+                            <label for="selectClubImageInput" class="btn btn-dark mb-3">Sélectionner une image</label>
+                            <input type="file" class="d-none" id="selectClubImageInput">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addClubAddressLogo"><i class="fas fa-map-marked-alt fa-fw"></i></span>
                                 </div>
+                                <input type="input" class="form-control" id="addClubAddress" placeholder="Adresse" aria-describedby="addClubAddressLogo">
                             </div>
-                            <div class="form-group row">
-                                <label class="col-form-label col-3" for="addClubCity">Ville</label>
-                                <div class="col-9">
-                                    <input type="input" class="form-control" id="addClubCity" placeholder="Ville">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addClubCityLogo"><i class="fas fa-city fa-fw"></i></span>
                                 </div>
+                                <input type="input" class="form-control" id="addClubCity" placeholder="Ville" aria-describedby="addClubCityLogo">
                             </div>
-                            <div class="form-group row">
-                                <label class="col-form-label col-3" for="addClubEmail">Email</label>
-                                <div class="col-9">
-                                    <input type="email" class="form-control" id="addClubEmail" placeholder="Email">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addClubEmailLogo"><i class="fas fa-at fa-fw"></i></span>
                                 </div>
+                                <input type="input" class="form-control" id="addClubEmail" placeholder="Email" aria-describedby="addClubEmailLogo">
                             </div>
-                            <div class="form-group row">
-                                <label class="col-form-label col-3" for="addClubCoach">Coach</label>
-                                <div class="col-9">
-                                    <select id="addClubCoach" class="form-control">
-                                        <option value="" selected></option>
-                                        {% for administrator in administrators %}
-                                            <option value="{{ administrator.id }}">{{ administrator.lastName }} {{ administrator.name }}</option>
-                                        {% endfor %}
-                                    </select>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addClubCoachLogo"><i class="fas fa-user fa-fw"></i></span>
                                 </div>
+                                <select id="addClubCoach" class="form-control" aria-describedby="addClubCoachLogo">
+                                    <option value="" selected></option>
+                                    {% for administrator in administrators %}
+                                        <option value="{{ administrator.id }}">{{ administrator.lastName }} {{ administrator.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </a>
                     <div class="card-footer">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="addClubFacebookLogo"><i class="fab fa-facebook-square socialMediaButton"></i></span>
+                                <span class="input-group-text" id="addClubFacebookLogo"><i class="fab fa-facebook-square fa-fw"></i></span>
                             </div>
                             <input type="input" class="form-control" id="addClubFacebook" placeholder="Lien facebook" aria-describedby="addClubFacebookLogo">
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="addClubInstagramLogo"><i class="fab fa-instagram socialMediaButton"></i></span>
+                                <span class="input-group-text" id="addClubInstagramLogo"><i class="fab fa-instagram fa-fw"></i></span>
                             </div>
                             <input type="input" class="form-control" id="addClubInstagram" placeholder="Lien instagram" aria-describedby="addClubInstagramLogo">
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="addClubTwitterLogo"><i class="fab fa-twitter twitterButton"></i></span>
+                                <span class="input-group-text" id="addClubTwitterLogo"><i class="fab fa-twitter fa-fw"></i></span>
                             </div>
                             <input type="input" class="form-control" id="addClubTwitter" placeholder="Lien twitter" aria-describedby="addClubTwitterLogo">
-                        </div>
-                        <div class="row my-3">
-                            <div class="col">
-                                <div class="btn btn-dark float-left" id="addClubButton">Ajouter</div>
-                            </div>
-                            <div class="col">
-                                <div class="btn btn-dark float-right" id="cancelAddClubButton">Annuler</div>
-                            </div>
                         </div>
                     </div>
                 </form>

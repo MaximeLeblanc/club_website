@@ -73,7 +73,7 @@ class AdministrationController extends AbstractController {
         $serializer = new Serializer($normalizers, $encoders);
 
         $name = $request->get('name');
-        $lastName = $request->get('lastName');
+        $lastName = strtoupper($request->get('lastName'));
         $email = $request->get('email');
         $role = $request->get('role');
         if ($role == "Administrateur") {
@@ -166,6 +166,50 @@ class AdministrationController extends AbstractController {
         $entityManager->flush();
 
         $jsonUser[] = $serializer->serialize($user, 'json');
+        return new JsonResponse($jsonUser);
+    }
+
+    /**
+     * @Route("/addClub")
+     */
+    public function addClub(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $name = $request->get('name');
+        $image = $request->get('image');
+        $address = $request->get('address');
+        $city = $request->get('city');
+        $email = $request->get('email');
+        $coach = $request->get('coach');
+        $facebook = $request->get('facebook');
+        $instagram = $request->get('instagram');
+        $twitter = $request->get('twitter');
+        
+        $club = new Club();
+        $club->setName($name);
+        $club->setLogo($image);
+        $club->setAddress($address);
+        $club->setCity($city);
+        $club->setEmail($email);
+        $club->setUser($coach);
+        $club->setFacebook($facebook);
+        $club->setInstagram($instagram);
+        $club->setTwitter($twitter);
+
+        try {
+            $entityManager->persist($club);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new Response($e);
+        }
+        
+        $jsonUser[] = $serializer->serialize($user, 'json');
+
+        // Send email to create a password
         return new JsonResponse($jsonUser);
     }
 }

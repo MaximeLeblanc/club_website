@@ -16,37 +16,37 @@ class Club {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $facebook;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $instagram;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $twitter;
 
@@ -55,76 +55,102 @@ class Club {
      */
     private $logo;
 
-    public function getId() {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clubs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function getName() {
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName($name) {
+    public function setName($name): self {
         $this->name = $name;
+
+        return $this;
     }
 
-    public function getCity() {
-        return $this->city;
-    }
-
-    public function setCity($city) {
-        $this->city = $city;
-    }
-
-    public function getAddress() {
+    public function getAddress(): ?string {
         return $this->address;
     }
 
-    public function setAddress($address) {
+    public function setAddress($address): self {
         $this->address = $address;
+
+        return $this;
     }
 
-    public function getDescription() {
-        return $this->description;
+    public function getCity(): ?string {
+        return $this->city;
     }
 
-    public function setDescription($description) {
-        $this->description = $description;
+    public function setCity($city): self {
+        $this->city = $city;
+
+        return $this;
     }
 
-    public function getFacebook() {
+    public function getEmail(): ?string {
+        return $this->email;
+    }
+
+    public function setEmail($email): self {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string {
         return $this->facebook;
     }
 
-    public function setFacebook($facebook) {
+    public function setFacebook($facebook): self {
         $this->facebook = $facebook;
+
+        return $this;
     }
 
-    public function getInstagram() {
+    public function getInstagram(): ?string {
         return $this->instagram;
     }
 
-    public function setInstagram($instagram) {
+    public function setInstagram($instagram): self {
         $this->instagram = $instagram;
     }
 
-    public function getTwitter() {
+    public function getTwitter(): ?string {
         return $this->twitter;
     }
 
-    public function setTwitter($twitter) {
+    public function setTwitter($twitter): self {
         $this->twitter = $twitter;
+
+        return $this;
     }
 
-    public function getLogo() {
+    public function getLogo(): ?string {
         return $this->logo;
     }
 
-    public function setLogo($logo) {
+    public function setLogo($logo): self {
         $this->logo = $logo;
+
+        return $self;
+    }
+
+    public function getUser(): ?User {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self {
+        $this->user = $user;
+
+        return $this;
     }
 }
 ?>

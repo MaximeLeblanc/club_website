@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -45,6 +47,15 @@ class User implements UserInterface {
      * @ORM\Column(type="string", length=255, unique=false, nullable=true)
      */
     private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Club", mappedBy="user")
+     */
+    private $clubs;
+
+    public function __construct() {
+        $this->clubs = new ArrayCollection();
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -149,5 +160,33 @@ class User implements UserInterface {
     public function eraseCredentials() {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Club[]
+     */
+    public function getClubs(): Collection {
+        return $this->clubs;
+    }
+
+    public function addClub(Club $club): self {
+        if (!$this->clubs->contains($club)) {
+            $this->clubs[] = $club;
+            $club->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClub(Club $club): self {
+        if ($this->clubs->contains($club)) {
+            $this->clubs->removeElement($club);
+            // set the owning side to null (unless already changed)
+            if ($club->getUser() === $this) {
+                $club->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
