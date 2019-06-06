@@ -185,6 +185,7 @@ class AdministrationController extends AbstractController {
      */
     public function addClub(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
@@ -199,6 +200,8 @@ class AdministrationController extends AbstractController {
         $facebook = $request->get('facebook');
         $instagram = $request->get('instagram');
         $twitter = $request->get('twitter');
+
+        $user = $userRepository->find($coach);
         
         $club = new Club();
         $club->setName($name);
@@ -206,21 +209,20 @@ class AdministrationController extends AbstractController {
         $club->setAddress($address);
         $club->setCity($city);
         $club->setEmail($email);
-        $club->setUser($coach);
+        $club->setUser($user);
         $club->setFacebook($facebook);
         $club->setInstagram($instagram);
         $club->setTwitter($twitter);
 
-        try {
+        //try {
             $entityManager->persist($club);
             $entityManager->flush();
-        } catch (\Exception $e) {
-            return new Response($e);
-        }
+        //} catch (\Exception $e) {
+        //    return new Response($e);
+        //}
         
         $jsonUser[] = $serializer->serialize($user, 'json');
 
-        // Send email to create a password
         return new JsonResponse($jsonUser);
     }
 }

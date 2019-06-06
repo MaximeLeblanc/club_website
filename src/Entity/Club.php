@@ -121,6 +121,8 @@ class Club {
 
     public function setInstagram($instagram): self {
         $this->instagram = $instagram;
+
+        return $this;
     }
 
     public function getTwitter(): ?string {
@@ -140,7 +142,7 @@ class Club {
     public function setLogo($logo): self {
         $this->logo = $logo;
 
-        return $self;
+        return $this;
     }
 
     public function getUser(): ?User {

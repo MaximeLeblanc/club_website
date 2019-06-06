@@ -28,39 +28,40 @@ $(function() {
     });
 
     $('#addClubButton').click(function() {
-        var name = $('#addClubName').val();
-        var image = $croppedImage.result('blob');
-        var address = $('#addClubAddressLogo').val();
-        var city = $('#addClubCity').val();
-        var email = $('#addClubEmail').val();
-        var coach = $('#addClubCoach').val();
-        var facebook = $('#addClubFacebook').val();
-        var instagram = $('#addClubInstagram').val();
-        var twitter = $('#addClubTwitter').val();
-        alert(image);
-        $.ajax({
-            url: "/addClub",
-            type: "post",
-            data: {
-                name: name,
-                image: image,
-                address: address,
-                city: city,
-                email: email,
-                coach: coach,
-                facebook: facebook,
-                instagram: instagram,
-                twitter: twitter
-            },
-            dataType: "json",
-            success: function(response) {
-                var club = $.parseJSON(response);
-                $('#addClubCard').addClass('d-none');
-                $('#clickAddClub').removeClass('d-none');
-            },
-            error: function() {
-               alert("Erreur lors de la création du club !");
-            }
+        $croppedImage.croppie('result', 'base64').then(function(logo) {
+            var name = $('#addClubName').val();
+            var image = logo;
+            var address = $('#addClubAddressLogo').val();
+            var city = $('#addClubCity').val();
+            var email = $('#addClubEmail').val();
+            var coach = $('#addClubCoach').val();
+            var facebook = $('#addClubFacebook').val();
+            var instagram = $('#addClubInstagram').val();
+            var twitter = $('#addClubTwitter').val();
+            $.ajax({
+                url: "/addClub",
+                type: "post",
+                data: {
+                    name: name,
+                    image: image,
+                    address: address,
+                    city: city,
+                    email: email,
+                    coach: coach,
+                    facebook: facebook,
+                    instagram: instagram,
+                    twitter: twitter
+                },
+                dataType: "json",
+                success: function(response) {
+                    var club = $.parseJSON(response);
+                    $('#addClubCard').addClass('d-none');
+                    $('#clickAddClub').removeClass('d-none');
+                },
+                error: function() {
+                    alert("Erreur lors de la création du club !");
+                }
+            });
         });
     });
 

@@ -32,13 +32,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ app.user.name }} {{ app.user.lastName }}
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/administration/profile">Profil</a>
-                <a href="/logout">
-                    <button type="button" class="btn btn-outline-primary">Déconnexion
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                </a>
+                <a class="dropdown-item" href="/logout">Déconnexion</a>
             </div>
         </div>
     </div>
