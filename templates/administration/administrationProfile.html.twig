@@ -1,0 +1,53 @@
+{# templates/administration/administrationProfile.html.twig #}
+{% extends 'common/base.html.twig' %}
+
+{% block navbar %}
+    {{ include('administration/administrationNavbar.html.twig') }}
+{% endblock %}
+{% block body %}
+<div class="row" id="editProfile">
+    <div class="col-md-2"></div>
+    <div class="col-12 col-md-8">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <h5 class="text-center">Profil</h5>
+                        <form>
+                            <input type="input" class="d-none" id="editProfileId">
+                            <div class="form-group">
+                                <label for="editProfileName">Prénom</label>
+                                <input type="input" class="form-control" id="editProfileName" placeholder="Prénom">
+                            </div>
+                            <div class="form-group">
+                                <label for="editProfileLastName">Nom</label>
+                                <input type="input" class="form-control" id="editProfileLastName" placeholder="Nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="editProfileEmail">Email</label>
+                                <input type="email" class="form-control" id="editProfileEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="editProfileRole">Role</label>
+                                <select id="editProfileRole" class="form-control">
+                                    <option value="Coach" selected>Coach</option>
+                                    <option value="Administrateur">Administrateur</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn btn-dark float-left" id="editProfileButton">Modifier</div>
+                                </div>
+                                <div class="col">
+                                    <div class="btn btn-dark float-right" id="cancelEditProfileButton">Annuler</div>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}

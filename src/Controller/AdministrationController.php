@@ -63,6 +63,17 @@ class AdministrationController extends AbstractController {
     }
 
     /**
+     * @Route("/administration/profile", name="administrationProfile")
+     */
+    public function administrationProfile() {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('administration/administrationProfile.html.twig');
+    }
+
+    /**
      * @Route("/addAdministrator")
      */
     public function addAdministrator(Request $request) {
