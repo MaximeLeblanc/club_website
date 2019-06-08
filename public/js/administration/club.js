@@ -13,7 +13,7 @@ $(function() {
 
     $('#clickAddClub').click(function() {
         $('#addClubCard').removeClass('d-none');
-        $('#clickAddClub').addClass('d-none');
+        $('#clickAddClubCard').addClass('d-none');
         $croppedImage.croppie('bind', {
             url: '../../images/user.png',
         });
@@ -24,7 +24,7 @@ $(function() {
 
     $('#cancelAddClubButton').click(function() {
         $('#addClubCard').addClass('d-none');
-        $('#clickAddClub').removeClass('d-none');
+        $('#clickAddClubCard').removeClass('d-none');
     });
 
     $('#addClubButton').click(function() {

@@ -202,17 +202,22 @@ class AdministrationController extends AbstractController {
         $twitter = $request->get('twitter');
 
         $user = $userRepository->find($coach);
+
+        $fileName = "/images/clubsLogo/".$name;
+        $logo = base64_decode($image);
+        $this->storeLogo($fileName, $logo);
         
         $club = new Club();
         $club->setName($name);
-        $club->setLogo($image);
+        $club->setLogo($fileName);
         $club->setAddress($address);
         $club->setCity($city);
         $club->setEmail($email);
-        $club->setUser($user);
         $club->setFacebook($facebook);
         $club->setInstagram($instagram);
         $club->setTwitter($twitter);
+
+        $user->addClub($club);
 
         //try {
             $entityManager->persist($club);
@@ -224,6 +229,12 @@ class AdministrationController extends AbstractController {
         $jsonUser[] = $serializer->serialize($user, 'json');
 
         return new JsonResponse($jsonUser);
+    }
+
+    private function storeLogo($fileName, $logo) {
+        $file = fopen($this->getParameter('kernel.project_dir')."/public".$fileName, "wb");
+        fwrite($file, $logo);
+        fclose($file);
     }
 }
 ?>
