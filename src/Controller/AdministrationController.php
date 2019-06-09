@@ -217,7 +217,8 @@ class AdministrationController extends AbstractController {
         $data = explode(',', $image);
         $firstData = str_replace(';', '/', $data[0]);
         $extension = explode('/', $firstData)[1];
-        $fileName = "/images/clubsLogo/".$name.".".$extension;
+        $date = date('dmYHis');
+        $fileName = "/images/clubsLogo/".$name."_".$date.".".$extension;
         $this->storeLogo($fileName, $data[1]);
         
         $club = new Club();
@@ -238,6 +239,69 @@ class AdministrationController extends AbstractController {
         //    return new Response($e);
         //}
 
+        $users = $userRepository->getAllUsers();
+        
+        $jsonClub[] = $serializer->serialize($club, 'json', ['groups' => 'club']);
+        $jsonUsers[] = $serializer->serialize($users, 'json', ['groups' => 'user']);
+
+        $jsonResponse = json_encode(array_merge($jsonClub, $jsonUsers));
+
+        return new JsonResponse($jsonResponse);
+    }
+
+    /**
+     * @Route("/editClub")
+     */
+    public function editClub(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $clubRepository = $this->getDoctrine()->getRepository(Club::class);
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $image = $request->get('image');
+        $address = $request->get('address');
+        $city = $request->get('city');
+        $email = $request->get('email');
+        $coach = $request->get('coach');
+        $facebook = $request->get('facebook');
+        $instagram = $request->get('instagram');
+        $twitter = $request->get('twitter');
+        
+        $user = $userRepository->find($coach);
+        $club = $clubRepository->find($id);
+
+        $this->deleteLogo($club->getLogo());
+        $data = explode(',', $image);
+        $firstData = str_replace(';', '/', $data[0]);
+        $extension = explode('/', $firstData)[1];
+        $date = date('dmYHis');
+        $fileName = "/images/clubsLogo/".$name."_".$date.".".$extension;
+        $this->storeLogo($fileName, $data[1]);
+        
+        
+        $club->setName($name);
+        $club->setLogo($fileName);
+        $club->setAddress($address);
+        $club->setCity($city);
+        $club->setEmail($email);
+        $club->setFacebook($facebook);
+        $club->setInstagram($instagram);
+        $club->setTwitter($twitter);
+        $club->setUser($user);
+
+        try {
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new Response($e);
+        }
+        
         $users = $userRepository->getAllUsers();
         
         $jsonClub[] = $serializer->serialize($club, 'json', ['groups' => 'club']);

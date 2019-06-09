@@ -201,28 +201,82 @@ $(function() {
             });
         });
     });
-
-    $('.selectClubImageInput').change(function () {
-        readFile(this);
-    });
 });
+
+$(document).on('change', '.selectClubImageInput', function() {
+    readFile(this);
+})
 
 $(document).on('click', '.deleteClub', function() {
     var id = this.id.substr(16);
+    $.ajax({
+        url: "/deleteClub",
+        type: "post",
+        data: {
+            id: id
+        },
+        success: function() {
+            var club = '#club' + id;
+            $(club).remove();
+        },
+        error: function() {
+            alert("La suppression n'est pas encore implémentée");
+        }
+    });
+});
+
+$(document).on('click', '.editClub', function() {
+    var id = this.id.substr(14);
+    $croppedImageList[id].croppie('result', 'base64').then(function(logo) {
+        var name = $('#clubName' + id).val();
+        var image = logo;
+        var address = $('#clubAddress' + id).val();
+        var city = $('#clubCity' + id).val();
+        var email = $('#clubEmail' + id).val();
+        var coach = $('#clubCoach' + id).val();
+        var facebook = $('#clubFacebook' + id).val();
+        var instagram = $('#clubInstagram' + id).val();
+        var twitter = $('#clubTwitter' + id).val();
         $.ajax({
-            url: "/deleteClub",
+            url: "/editClub",
             type: "post",
             data: {
-                id: id
+                id: id,
+                name: name,
+                image: image,
+                address: address,
+                city: city,
+                email: email,
+                coach: coach,
+                facebook: facebook,
+                instagram: instagram,
+                twitter: twitter
             },
-            success: function() {
-                var club = '#club' + id;
-                $(club).remove();
+            success: function(jsonResponse) {
+                var response = $.parseJSON(jsonResponse);
+                var club = $.parseJSON(response[0]);
+                $croppedImageList[club.id].croppie('destroy');
+                $croppedImageList[club.id].croppie({
+                    viewport: {
+                        width: 100,
+                        height: 100,
+                        type: 'circle'
+                    },
+                    boundary: {
+                        width: 150,
+                        height: 150
+                    }
+                });
+                $croppedImageList[club.id].croppie('bind', {
+                    url: club.logo,
+                    zoom: 0.5,
+                });
             },
             error: function() {
-                alert("La suppression n'est pas encore implémentée");
+                alert("Erreur lors de la modification");
             }
         });
+    });
 });
 
 function readFile(input) {
@@ -242,10 +296,4 @@ function readFile(input) {
         }
         reader.readAsDataURL(input.files[0]);
     }
-}
-
-function loopTest($var) {
-    $var.each(function() {
-        alert($var);
-    });
 }
