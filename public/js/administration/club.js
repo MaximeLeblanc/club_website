@@ -127,7 +127,7 @@ $(function() {
                                             "<div class=\"d-none\" id=\"logo" + club.id + "\">" + club.logo + "</div>" +
                                         "</div>" +
                                         "<label for=\"clubImageInput" + club.id + "\" class=\"btn btn-dark mb-3\">Sélectionner une image</label>" +
-                                        "<input type=\"file\" class=\"d-none\" id=\"clubImageInput" + club.id + "\">" +
+                                        "<input type=\"file\" class=\"d-none selectClubImageInput\" id=\"clubImageInput" + club.id + "\">" +
                                         "<div class=\"input-group\">" +
                                             "<div class=\"input-group-prepend\">" +
                                                 "<span class=\"input-group-text\" id=\"clubAddressLogo" + club.id + "\"><i class=\"fas fa-map-marked-alt fa-fw\"></i></span> "+
@@ -179,7 +179,7 @@ $(function() {
                             "</div>" +
                         "</div>"
                     );
-                    $croppedImageList[club.id] = $clubImageList.push($('#' + club.id)).croppie({
+                    $croppedImageList[club.id] = $('#' + club.id).croppie({
                         viewport: {
                             width: 100,
                             height: 100,
@@ -202,7 +202,7 @@ $(function() {
         });
     });
 
-    $('#selectClubImageInput').change(function () {
+    $('.selectClubImageInput').change(function () {
         readFile(this);
     });
 });
@@ -226,10 +226,17 @@ $(document).on('click', '.deleteClub', function() {
 });
 
 function readFile(input) {
+    var inputId = $(input).attr('id');
+    var divId = "";
+    if (inputId == 'clubImageInputAdd') {
+        divId = '#addClubImage'
+    } else {
+        divId = '#' + inputId.substr(14);
+    }
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#addClubImage').croppie('bind', {
+            $(divId).croppie('bind', {
                 url: e.target.result
             });
         }

@@ -33,7 +33,7 @@
                                 <div class="d-none" id="logo{{ club.id }}">{{ club.logo }}</div>
                             </div>
                             <label for="clubImageInput{{ club.id }}" class="btn btn-dark mb-3">Sélectionner une image</label>
-                            <input type="file" class="d-none" id="clubImageInput{{ club.id }}">
+                            <input type="file" class="d-none selectClubImageInput" id="clubImageInput{{ club.id }}">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="clubAddressLogo{{ club.id }}"><i class="fas fa-map-marked-alt fa-fw"></i></span>
@@ -111,8 +111,8 @@
                     </div>
                         <div class="card-body text-center text-dark">
                             <div id="addClubImage"></div>
-                            <label for="selectClubImageInput" class="btn btn-dark mb-3">Sélectionner une image</label>
-                            <input type="file" class="d-none" id="selectClubImageInput">
+                            <label for="clubImageInputAdd" class="btn btn-dark mb-3">Sélectionner une image</label>
+                            <input type="file" class="d-none selectClubImageInput" id="clubImageInputAdd">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addClubAddressLogo"><i class="fas fa-map-marked-alt fa-fw"></i></span>
