@@ -23,64 +23,68 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="clubNameLogo{{ club.id }}"><i class="fas fa-address-card"></i></span>
                                 </div>
-                                <input type="input" class="form-control" id="clubName{{ club.id }}" placeholder="{{ club.name }}" aria-describedby="clubNameLogo{{ club.id }}">
+                                <input type="input" class="form-control" id="clubName{{ club.id }}" value="{{ club.name }}" placeholder="Nom du club" aria-describedby="clubNameLogo{{ club.id }}">
                                 <div class="btn btn-dark clubButton editClub" id="editClubButton{{ club.id }}"><i class="fas fa-edit"></i></div>
                                 <div class="btn btn-dark clubButton deleteClub" id="deleteClubButton{{ club.id }}"><i class="fas fa-times"></i></div>
                             </div>
                         </div>
-                            <div class="card-body text-center text-dark">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="clubAddressLogo{{ club.id }}"><i class="fas fa-map-marked-alt fa-fw"></i></span>
-                                    </div>
-                                    <input type="input" class="form-control" id="clubAddress{{ club.id }}" placeholder="{{ club.address }}" aria-describedby="clubAddressLogo{{ club.id }}">
-                                </div>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="clubCityLogo{{ club.id }}"><i class="fas fa-city fa-fw"></i></span>
-                                    </div>
-                                    <input type="input" class="form-control" id="clubCity{{ club.id }}" placeholder="{{ club.city }}" aria-describedby="clubCityLogo{{ club.id }}">
-                                </div>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="clubEmailLogo{{ club.id }}"><i class="fas fa-at fa-fw"></i></span>
-                                    </div>
-                                    <input type="input" class="form-control" id="clubEmail{{ club.id }}" placeholder="{{ club.email }}" aria-describedby="clubEmailLogo{{ club.id }}">
-                                </div>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="clubCoachLogo{{ club.id }}"><i class="fas fa-user fa-fw"></i></span>
-                                    </div>
-                                    <select id="clubCoach{{ club.id }}" class="form-control" aria-describedby="clubCoachLogo{{ club.id }}">
-                                        {% for administrator in administrators %}
-                                            <option
-                                                {% if (administrator.id == club.user.id) %}
-                                                    selected
-                                                {% endif %}
-                                                value="{{ administrator.id }}">{{ administrator.lastName }} {{ administrator.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                        <div class="card-body text-center text-dark">
+                            <div class="clubImage" id="{{ club.id }}">
+                                <div class="d-none" id="logo{{ club.id }}">{{ club.logo }}</div>
                             </div>
-                        </a>
+                            <label for="clubImageInput{{ club.id }}" class="btn btn-dark mb-3">Sélectionner une image</label>
+                            <input type="file" class="d-none" id="clubImageInput{{ club.id }}">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="clubAddressLogo{{ club.id }}"><i class="fas fa-map-marked-alt fa-fw"></i></span>
+                                </div>
+                                <input type="input" class="form-control" id="clubAddress{{ club.id }}" value="{{ club.address }}" placeholder="Adresse" aria-describedby="clubAddressLogo{{ club.id }}">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="clubCityLogo{{ club.id }}"><i class="fas fa-city fa-fw"></i></span>
+                                </div>
+                                <input type="input" class="form-control" id="clubCity{{ club.id }}" value="{{ club.city }}" placeholder="Ville" aria-describedby="clubCityLogo{{ club.id }}">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="clubEmailLogo{{ club.id }}"><i class="fas fa-at fa-fw"></i></span>
+                                </div>
+                                <input type="input" class="form-control" id="clubEmail{{ club.id }}" value="{{ club.email }}" placeholder="Email" aria-describedby="clubEmailLogo{{ club.id }}">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="clubCoachLogo{{ club.id }}"><i class="fas fa-user fa-fw"></i></span>
+                                </div>
+                                <select id="clubCoach{{ club.id }}" class="form-control" aria-describedby="clubCoachLogo{{ club.id }}">
+                                    {% for administrator in administrators %}
+                                        <option
+                                            {% if (administrator.id == club.user.id) %}
+                                                selected
+                                            {% endif %}
+                                            value="{{ administrator.id }}">{{ administrator.lastName }} {{ administrator.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
                         <div class="card-footer">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="clubFacebookLogo{{ club.id }}"><i class="fab fa-facebook-square fa-fw"></i></span>
                                 </div>
-                                <input type="input" class="form-control" id="clubFacebook{{ club.id }}" placeholder="{{ club.facebook }}" aria-describedby="clubFacebookLogo{{ club.id }}">
+                                <input type="input" class="form-control" id="clubFacebook{{ club.id }}" value="{{ club.facebook }}" placeholder="Lien Facebook" aria-describedby="clubFacebookLogo{{ club.id }}">
                             </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="clubInstagramLogo{{ club.id }}"><i class="fab fa-instagram fa-fw"></i></span>
                                 </div>
-                                <input type="input" class="form-control" id="clubInstagram{{ club.id }}" placeholder="{{ club.instagram }}" aria-describedby="clubInstagramLogo{{ club.id }}">
+                                <input type="input" class="form-control" id="clubInstagram{{ club.id }}" value="{{ club.instagram }}" placeholder="Lien Instagram" aria-describedby="clubInstagramLogo{{ club.id }}">
                             </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="clubTwitterLogo{{ club.id }}"><i class="fab fa-twitter fa-fw"></i></span>
                                 </div>
-                                <input type="input" class="form-control" id="clubTwitter{{ club.id }}" placeholder="{{ club.twitter }}" aria-describedby="clubTwitterLogo{{ club.id }}">
+                                <input type="input" class="form-control" id="clubTwitter{{ club.id }}" value="{{ club.twitter }}" placeholder="Lien Twitter" aria-describedby="clubTwitterLogo{{ club.id }}">
                             </div>
                         </div>
                     </form>
@@ -145,19 +149,19 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="addClubFacebookLogo"><i class="fab fa-facebook-square fa-fw"></i></span>
                             </div>
-                            <input type="input" class="form-control" id="addClubFacebook" placeholder="Lien facebook" aria-describedby="addClubFacebookLogo">
+                            <input type="input" class="form-control" id="addClubFacebook" placeholder="Lien Facebook" aria-describedby="addClubFacebookLogo">
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="addClubInstagramLogo"><i class="fab fa-instagram fa-fw"></i></span>
                             </div>
-                            <input type="input" class="form-control" id="addClubInstagram" placeholder="Lien instagram" aria-describedby="addClubInstagramLogo">
+                            <input type="input" class="form-control" id="addClubInstagram" placeholder="Lien Instagram" aria-describedby="addClubInstagramLogo">
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="addClubTwitterLogo"><i class="fab fa-twitter fa-fw"></i></span>
                             </div>
-                            <input type="input" class="form-control" id="addClubTwitter" placeholder="Lien twitter" aria-describedby="addClubTwitterLogo">
+                            <input type="input" class="form-control" id="addClubTwitter" placeholder="Lien Twitter" aria-describedby="addClubTwitterLogo">
                         </div>
                     </div>
                 </form>

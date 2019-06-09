@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClubRepository")
@@ -12,52 +13,62 @@ class Club {
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"club", "user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @Groups({"club", "user"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $facebook;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $instagram;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $twitter;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"club"})
      */
     private $logo;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clubs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"club"})
      */
     private $user;
 

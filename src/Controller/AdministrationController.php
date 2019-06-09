@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use App\Entity\User;
 use App\Entity\Club;
 
@@ -77,10 +80,12 @@ class AdministrationController extends AbstractController {
      * @Route("/addAdministrator")
      */
     public function addAdministrator(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
         $serializer = new Serializer($normalizers, $encoders);
 
         $name = $request->get('name');
@@ -109,7 +114,7 @@ class AdministrationController extends AbstractController {
             return new Response($e);
         }
         
-        $jsonUser[] = $serializer->serialize($user, 'json');
+        $jsonUser[] = $serializer->serialize($user, 'json', ['groups' => 'user']);
 
         // Send email to create a password
         return new JsonResponse($jsonUser);
@@ -119,11 +124,13 @@ class AdministrationController extends AbstractController {
      * @Route("/editAdministrator")
      */
     public function editAdministrator(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
         $entityManager = $this->getDoctrine()->getManager();
         $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
         $serializer = new Serializer($normalizers, $encoders);
 
         $id = $request->get('id');
@@ -152,7 +159,7 @@ class AdministrationController extends AbstractController {
             return new Response($e);
         }
         
-        $jsonUser[] = $serializer->serialize($user, 'json');
+        $jsonUser[] = $serializer->serialize($user, 'json', ['groups' => 'user']);
 
         // Send email to create a password
         return new JsonResponse($jsonUser);
@@ -162,11 +169,13 @@ class AdministrationController extends AbstractController {
      * @Route("/deleteAdministrator")
      */
     public function deleteAdministrator(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
         $entityManager = $this->getDoctrine()->getManager();
         $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
         $serializer = new Serializer($normalizers, $encoders);
 
         $id = $request->get('id');
@@ -176,7 +185,7 @@ class AdministrationController extends AbstractController {
         $entityManager->remove($user);
         $entityManager->flush();
 
-        $jsonUser[] = $serializer->serialize($user, 'json');
+        $jsonUser[] = $serializer->serialize($user, 'json', ['groups' => 'user']);
         return new JsonResponse($jsonUser);
     }
 
@@ -184,11 +193,13 @@ class AdministrationController extends AbstractController {
      * @Route("/addClub")
      */
     public function addClub(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
         $entityManager = $this->getDoctrine()->getManager();
         $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
         $serializer = new Serializer($normalizers, $encoders);
 
         $name = $request->get('name');
@@ -203,9 +214,11 @@ class AdministrationController extends AbstractController {
 
         $user = $userRepository->find($coach);
 
-        $fileName = "/images/clubsLogo/".$name;
-        $logo = base64_decode($image);
-        $this->storeLogo($fileName, $logo);
+        $data = explode(',', $image);
+        $firstData = str_replace(';', '/', $data[0]);
+        $extension = explode('/', $firstData)[1];
+        $fileName = "/images/clubsLogo/".$name.".".$extension;
+        $this->storeLogo($fileName, $data[1]);
         
         $club = new Club();
         $club->setName($name);
@@ -216,8 +229,7 @@ class AdministrationController extends AbstractController {
         $club->setFacebook($facebook);
         $club->setInstagram($instagram);
         $club->setTwitter($twitter);
-
-        $user->addClub($club);
+        $club->setUser($user);
 
         //try {
             $entityManager->persist($club);
@@ -225,16 +237,54 @@ class AdministrationController extends AbstractController {
         //} catch (\Exception $e) {
         //    return new Response($e);
         //}
-        
-        $jsonUser[] = $serializer->serialize($user, 'json');
 
-        return new JsonResponse($jsonUser);
+        $users = $userRepository->getAllUsers();
+        
+        $jsonClub[] = $serializer->serialize($club, 'json', ['groups' => 'club']);
+        $jsonUsers[] = $serializer->serialize($users, 'json', ['groups' => 'user']);
+
+        $jsonResponse = json_encode(array_merge($jsonClub, $jsonUsers));
+
+        return new JsonResponse($jsonResponse);
+    }
+
+    /**
+     * @Route("/deleteClub")
+     */
+    public function deleteClub(Request $request) {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $clubRepository = $this->getDoctrine()->getRepository(Club::class);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer($classMetadataFactory)];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $id = $request->get('id');
+
+        $club = $clubRepository->find($id);
+
+        $logo = $club->getLogo();
+        $this->deleteLogo($logo);
+
+        $entityManager->remove($club);
+        $entityManager->flush();
+
+        $jsonClub[] = $serializer->serialize($club, 'json', ['groups' => 'club']);
+        return new JsonResponse($jsonClub);
     }
 
     private function storeLogo($fileName, $logo) {
         $file = fopen($this->getParameter('kernel.project_dir')."/public".$fileName, "wb");
-        fwrite($file, $logo);
+        fwrite($file, base64_decode($logo));
         fclose($file);
+    }
+
+    private function deleteLogo($fileName) {
+        $file = fopen($this->getParameter('kernel.project_dir')."/public".$fileName, 'w');
+        fclose($file);
+        unlink($this->getParameter('kernel.project_dir')."/public".$fileName);
     }
 }
 ?>

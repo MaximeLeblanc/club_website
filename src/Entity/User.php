@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -15,16 +16,19 @@ class User implements UserInterface {
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"club", "user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true, nullable=false)
+     * @Groups({"user"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user"})
      */
     private $roles = [];
 
@@ -35,21 +39,25 @@ class User implements UserInterface {
 
     /**
      * @ORM\Column(type="string", length=50, unique=false, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=50, unique=false, nullable=true)
+     * @Groups({"club", "user"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @Groups({"user"})
      */
     private $photo;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Club", mappedBy="user")
+     * @Groups({"user"})
      */
     private $clubs;
 
