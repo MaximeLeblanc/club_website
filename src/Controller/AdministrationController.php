@@ -91,6 +91,15 @@ class AdministrationController extends AbstractController {
         $name = $request->get('name');
         $lastName = strtoupper($request->get('lastName'));
         $email = $request->get('email');
+        if ($this->isNullOrEmptyString($email)) {
+            $message = json_encode(array(
+                'error' => array(
+                    'title' => "Erreur lors de la création de l'utilisateur.",
+                    'message' => "Le champs email est vide."
+                ),
+            ));
+            return new Response($message);
+        }
         $role = $request->get('role');
         if ($role == "Administrateur") {
             $role = "ROLE_SUPER_ADMIN";
@@ -349,6 +358,10 @@ class AdministrationController extends AbstractController {
         $file = fopen($this->getParameter('kernel.project_dir')."/public".$fileName, 'w');
         fclose($file);
         unlink($this->getParameter('kernel.project_dir')."/public".$fileName);
+    }
+
+    private function isNullOrEmptyString($str){
+        return (!isset($str) || trim($str) === '');
     }
 }
 ?>
