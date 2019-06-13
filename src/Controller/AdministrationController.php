@@ -73,7 +73,13 @@ class AdministrationController extends AbstractController {
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('administration/administrationProfile.html.twig');
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $id = $user = $this->getUser()->getId();
+        $administrator = $userRepository->find($id);
+
+        return $this->render('administration/administrationProfile.html.twig', [
+            'admin' => $administrator,
+        ]);
     }
 
     /**

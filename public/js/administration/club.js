@@ -22,7 +22,7 @@ $(function() {
         });
         $croppedImageList[$id].croppie('bind', {
             url: $url,
-            zoom: 0.5,
+            zoom: 0.01,
         });
     }
 
@@ -51,7 +51,7 @@ $(function() {
         $('#addClubTwitter').val('');
         $croppedImageAddClub.croppie('bind', {
             url: '../../images/user.png',
-            zoom: 0.5,
+            zoom: 0.01,
         });
         $('html,body').animate({
             scrollTop: $('#addClubCard').offset().top
@@ -192,7 +192,7 @@ $(function() {
                     });
                     $croppedImageList[club.id].croppie('bind', {
                         url: club.logo,
-                        zoom: 0.5,
+                        zoom: 0.01,
                     });
                 },
                 error: function(error) {
@@ -227,7 +227,10 @@ $(document).on('click', '.deleteClub', function() {
 
 $(document).on('click', '.editClub', function() {
     var id = this.id.substr(14);
-    $croppedImageList[id].croppie('result', 'base64').then(function(logo) {
+    $croppedImageList[id].croppie('result', {
+            'type' :'base64',
+            'size': 'original'
+        }).then(function(logo) {
         var name = $('#clubName' + id).val();
         var image = logo;
         var address = $('#clubAddress' + id).val();
@@ -269,7 +272,7 @@ $(document).on('click', '.editClub', function() {
                 });
                 $croppedImageList[club.id].croppie('bind', {
                     url: club.logo,
-                    zoom: 0.5,
+                    zoom: 0.01,
                 });
             },
             error: function() {

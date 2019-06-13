@@ -1,6 +1,8 @@
 {# templates/administration/administrationProfile.html.twig #}
 {% extends 'common/base.html.twig' %}
-
+{% block javascripts %}
+    <script src="{{ asset('js/administration/profile.js') }}"></script>
+{% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
@@ -14,25 +16,28 @@
                     <td>
                         <h5 class="text-center">Profil</h5>
                         <form>
-                            <input type="input" class="d-none" id="editProfileId">
+                            <div class="text-center">
+                                <div id="photo">
+                                    <div class="d-none" id="photoUrl">{{ admin.photo }}</div>
+                                </div>
+                                <label for="adminImageInput{{ admin.id }}" class="btn btn-dark mb-3">Sélectionner une image</label>
+                                <input type="file" class="d-none selectAdminImageInput" id="adminImageInput{{ admin.id }}">
+                            </div>
                             <div class="form-group">
                                 <label for="editProfileName">Prénom</label>
-                                <input type="input" class="form-control" id="editProfileName" placeholder="Prénom">
+                                <input type="input" class="form-control" id="editProfileName" placeholder="{{ admin.name }}">
                             </div>
                             <div class="form-group">
                                 <label for="editProfileLastName">Nom</label>
-                                <input type="input" class="form-control" id="editProfileLastName" placeholder="Nom">
+                                <input type="input" class="form-control" id="editProfileLastName" placeholder="{{ admin.lastName }}">
                             </div>
                             <div class="form-group">
                                 <label for="editProfileEmail">Email</label>
-                                <input type="email" class="form-control" id="editProfileEmail" placeholder="Email">
+                                <input type="email" class="form-control" id="editProfileEmail" placeholder="{{ admin.email }}">
                             </div>
                             <div class="form-group">
-                                <label for="editProfileRole">Role</label>
-                                <select id="editProfileRole" class="form-control">
-                                    <option value="Coach" selected>Coach</option>
-                                    <option value="Administrateur">Administrateur</option>
-                                </select>
+                                <label for="editProfilePassword">Mot de passe</label>
+                                <input type="password" class="form-control" id="editProfilePassword" placeholder="Mot de passe">
                             </div>
                             <div class="row">
                                 <div class="col">
