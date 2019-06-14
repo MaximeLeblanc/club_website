@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-#addClubImage {
+#addClubImage, #photo {
     width: 150px;
     height: 200px;
     margin: 0 auto;

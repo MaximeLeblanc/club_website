@@ -1,5 +1,8 @@
 {# templates/administration/administrationProfile.html.twig #}
 {% extends 'common/base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
+{% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/administration/profile.js') }}"></script>
 {% endblock %}
@@ -16,24 +19,26 @@
                     <td>
                         <h5 class="text-center">Profil</h5>
                         <form>
-                            <div class="text-center">
+                            <div class="text-center mb-3">
                                 <div id="photo">
                                     <div class="d-none" id="photoUrl">{{ admin.photo }}</div>
                                 </div>
-                                <label for="adminImageInput{{ admin.id }}" class="btn btn-dark mb-3">Sélectionner une image</label>
-                                <input type="file" class="d-none selectAdminImageInput" id="adminImageInput{{ admin.id }}">
+                                <label for="adminImageInput" class="btn btn-dark mb-1">Sélectionner une image</label>
+                                <input type="file" class="d-none selectAdminImageInput" id="adminImageInput">
+                                <br />
+                                <div class="btn btn-dark disabled" id="deleteProfileImage">Supprimer l'image</div>
                             </div>
                             <div class="form-group">
                                 <label for="editProfileName">Prénom</label>
-                                <input type="input" class="form-control" id="editProfileName" placeholder="{{ admin.name }}">
+                                <input type="input" class="form-control" id="editProfileName" placeholer"Prénom" value="{{ admin.name }}">
                             </div>
                             <div class="form-group">
                                 <label for="editProfileLastName">Nom</label>
-                                <input type="input" class="form-control" id="editProfileLastName" placeholder="{{ admin.lastName }}">
+                                <input type="input" class="form-control" id="editProfileLastName" placeholder="Nom de famile" value="{{ admin.lastName }}">
                             </div>
                             <div class="form-group">
                                 <label for="editProfileEmail">Email</label>
-                                <input type="email" class="form-control" id="editProfileEmail" placeholder="{{ admin.email }}">
+                                <input type="email" class="form-control" id="editProfileEmail" placeholder="Email" value="{{ admin.email }}">
                             </div>
                             <div class="form-group">
                                 <label for="editProfilePassword">Mot de passe</label>
