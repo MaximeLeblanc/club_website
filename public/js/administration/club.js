@@ -118,8 +118,8 @@ $(function() {
                                                 "<span class=\"input-group-text\" id=\"clubNameLogo" + club.id + "\"><i class=\"fas fa-address-card\"></i></span>" +
                                             "</div>" + 
                                             "<input type=\"input\" class=\"form-control\" id=\"clubName" + club.id + "\" value=\"" +  club.name + "\" placeholder=\"Nom du club\" aria-describedby=\"clubNameLogo" +  club.id + "\">" +
-                                            "<div class=\"btn btn-dark clubButton editClub\" id=\"editClubButton" + club.id + "\"><i class=\"fas fa-edit\"></i></div>" +
-                                            "<div class=\"btn btn-dark clubButton deleteClub\" id=\"deleteClubButton" + club.id + "\"><i class=\"fas fa-times\"></i></div>" +
+                                            "<div class=\"btn btn-dark clubButton editClub\" id=\"editClubButton" + club.id + "\" data-toggle=\"tooltip\" title=\"Modifier\"><i class=\"fas fa-edit\"></i></div>" +
+                                            "<div class=\"btn btn-dark clubButton deleteClub\" id=\"deleteClubButton" + club.id + "\" data-toggle=\"tooltip\" title=\"Supprimer\"><i class=\"fas fa-times\"></i></div>" +
                                         "</div>" +
                                     "</div>" +
                                     "<div class=\"card-body text-center text-dark\">" +
@@ -194,13 +194,34 @@ $(function() {
                         url: club.logo,
                         zoom: 0.01,
                     });
+                    $('#createClubSuccessModal').modal();
                 },
                 error: function(error) {
-                    alert(error);
+                    $('#createClubErrorModal').modal();
                 }
             });
         });
     });
+
+    $('#deleteClubConfirmationModalConfirm').click(function() {
+        var id = $('#clubToDeleteId').text();
+        $.ajax({
+            url: "/deleteClub",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function() {
+                var club = '#club' + id;
+                $(club).remove();
+                $('#deleteClubConfirmationModal').modal("hide");
+                $('#deleteClubSuccessModal').modal();
+            },
+            error: function() {
+                $('#deleteClubErrorModal').modal();
+            }
+        });
+    })
 });
 
 $(document).on('change', '.selectClubImageInput', function() {
@@ -209,20 +230,8 @@ $(document).on('change', '.selectClubImageInput', function() {
 
 $(document).on('click', '.deleteClub', function() {
     var id = this.id.substr(16);
-    $.ajax({
-        url: "/deleteClub",
-        type: "post",
-        data: {
-            id: id
-        },
-        success: function() {
-            var club = '#club' + id;
-            $(club).remove();
-        },
-        error: function() {
-            alert("La suppression n'est pas encore implémentée");
-        }
-    });
+    $('#clubToDeleteId').text(id);
+    $('#deleteClubConfirmationModal').modal();
 });
 
 $(document).on('click', '.editClub', function() {
@@ -274,9 +283,10 @@ $(document).on('click', '.editClub', function() {
                     url: club.logo,
                     zoom: 0.01,
                 });
+                $('#editClubSuccessModal').modal();
             },
             error: function() {
-                alert("Erreur lors de la modification");
+                $('#editClubErrorModal').modal();
             }
         });
     });

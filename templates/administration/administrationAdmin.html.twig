@@ -10,11 +10,139 @@
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
 {% block body %}
-    <div class="text-center">
+    <div class="modal fade" id="deleteAdministratorConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAdministratorConfirmationModalLabel">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sur de vouloir supprimer l'administrateur ?
+                    <input id="administratorToDeleteId" type="text" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button id="deleteAdministratorConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="deleteAdministratorSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    L'administrateur a été supprimé avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="deleteAdministratorErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la suppression de l'administrateur.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="createAdministratorSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="createAdministratorSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    L'administrateur a été créé avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="createAdministratorErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="createAdministratorErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la création de l'administrateur.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="editAdministratorSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="editAdministratorSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    L'administrateur a été modifié avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="editAdministratorErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="editAdministratorErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la modification de l'administrateur.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
         <h3>Gestion des administrateurs</h3>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="userTable">
+    <div class="table-responsive mt-3">
+        <table class="table table-bordered table-striped" id="userTable">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nom</th>
@@ -55,7 +183,7 @@
     <div class="btn btn-dark" id="clickAddAdministrator">
         <i class="fas fa-plus plusButton"></i>
     </div>
-    <div class="row d-none" id="addAdministrator">
+    <div class="row d-none mt-3" id="addAdministrator">
         <div class="col-md-2"></div>
         <div class="col-12 col-md-8">
             <table class="table table-bordered">
@@ -99,7 +227,7 @@
         </div>
         <div class="col-md-2"></div>
     </div>
-    <div class="row d-none" id="editAdministrator">
+    <div class="row d-none mt-3" id="editAdministrator">
         <div class="col-md-2"></div>
         <div class="col-12 col-md-8">
             <table class="table table-bordered">

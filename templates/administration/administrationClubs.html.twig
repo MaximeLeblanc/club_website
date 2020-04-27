@@ -10,7 +10,135 @@
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
 {% block body %}
-    <div class="text-center">
+    <div class="modal fade" id="deleteClubConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteClubConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteClubConfirmationModalLabel">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sur de vouloir supprimer le club ?
+                    <input id="clubToDeleteId" type="text" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button id="deleteClubConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteClubSuccessModal" tabindex="-1" role="dialog" aria-labelledby="deleteClubSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="deleteClubSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Le club a été supprimé avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteClubErrorModal" tabindex="-1" role="dialog" aria-labelledby="deleteClubErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="deleteClubErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la suppression du club.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createClubSuccessModal" tabindex="-1" role="dialog" aria-labelledby="createClubSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="createClubSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Le club a été créé avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createClubErrorModal" tabindex="-1" role="dialog" aria-labelledby="createClubErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="createClubErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la création du club.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editClubSuccessModal" tabindex="-1" role="dialog" aria-labelledby="editClubSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="editClubSuccessModalLabel">Succès !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Le club a été modifié avec succès.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editClubErrorModal" tabindex="-1" role="dialog" aria-labelledby="editClubErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="editClubErrorModalLabel">Erreur !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Une erreur s'est produite lors de la modification du club.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
         <h3>Gestion des clubs</h3>
     </div>
     <div class="row">
@@ -24,8 +152,8 @@
                                     <span class="input-group-text" id="clubNameLogo{{ club.id }}"><i class="fas fa-address-card"></i></span>
                                 </div>
                                 <input type="input" class="form-control" id="clubName{{ club.id }}" value="{{ club.name }}" placeholder="Nom du club" aria-describedby="clubNameLogo{{ club.id }}">
-                                <div class="btn btn-dark clubButton editClub" id="editClubButton{{ club.id }}"><i class="fas fa-edit"></i></div>
-                                <div class="btn btn-dark clubButton deleteClub" id="deleteClubButton{{ club.id }}"><i class="fas fa-times"></i></div>
+                                <div class="btn btn-dark clubButton editClub" id="editClubButton{{ club.id }}" data-toggle="tooltip" title="Modifier"><i class="fas fa-edit"></i></div>
+                                <div class="btn btn-dark clubButton deleteClub" id="deleteClubButton{{ club.id }}" data-toggle="tooltip" title="Supprimer"><i class="fas fa-times"></i></div>
                             </div>
                         </div>
                         <div class="card-body text-center text-dark">
@@ -105,8 +233,8 @@
                                 <span class="input-group-text" id="addClubNameLogo"><i class="fas fa-address-card"></i></span>
                             </div>
                             <input type="input" class="form-control" id="addClubName" placeholder="Nom du club" aria-describedby="addClubNameLogo">
-                            <div class="btn btn-dark clubButton" id="addClubButton"><i class="fas fa-check"></i></div>
-                            <div class="btn btn-dark clubButton" id="cancelAddClubButton"><i class="fas fa-times"></i></div>
+                            <div class="btn btn-dark clubButton" id="addClubButton" data-toggle="tooltip" title="Ajouter"><i class="fas fa-check"></i></div>
+                            <div class="btn btn-dark clubButton" id="cancelAddClubButton" data-toggle="tooltip" title="Annuler"><i class="fas fa-times"></i></div>
                         </div>
                     </div>
                         <div class="card-body text-center text-dark">

@@ -3,7 +3,7 @@ $(function() {
      * Click button to show the form to create administrator:
      *     Hide the + button
      *     Show the form to create administrator
-     *     Diables all edit and delete buttons
+     *     Disable all edit and delete buttons
      *****/
     $('#clickAddAdministrator').click(function() {
         $('#addAdministrator').removeClass('d-none');
@@ -23,7 +23,7 @@ $(function() {
      *         Show the + button
      *         Add the administrator to the table
      *         Show a success modal
-     *         Enables all edit and delete buttons
+     *         Enable all edit and delete buttons
      *     If fail:
      *         Show a fail modal
      *****/
@@ -44,7 +44,7 @@ $(function() {
             dataType: "json",
             success: function(response) {
                 if (response.error) {
-                    alert(response.error.title + " " + response.error.message);
+                    $('#createAdministratorErrorModal').modal();
                 } else {
                     var user = $.parseJSON(response);
                     $('#addAdministrator').addClass('d-none');
@@ -68,10 +68,11 @@ $(function() {
                     $('html,body').animate({
                         scrollTop: $('#userTable').offset().top
                     }, 'slow');
+                    $('#createAdministratorSuccessModal').modal();
                 }
             },
             error: function() {
-               alert("Erreur lors de la création de l'administrateur !");
+               $('#createAdministratorErrorModal').modal();
             }
         });
     });
@@ -98,8 +99,11 @@ $(function() {
      *     If success:
      *         Update the line in the table
      *         Hide the form to edit the administrator
-     *         How the + button
+     *         Show the + button
      *         Enables all edit and delete buttons
+     *         Show a success modal
+     *     If fail:
+     *         Show a fail modal
      *****/
     $('#editAdministratorButton').click(function() {
         var id = $('#editAdministratorId').val();;
@@ -131,9 +135,10 @@ $(function() {
                 $('html,body').animate({
                     scrollTop: $('#userTable').offset().top
                 }, 'slow');
+                $('#editAdministratorSuccessModal').modal();
             },
             error: function() {
-               alert("Erreur lors de la création de l'administrateur !");
+               $('#editAdministratorErrorModal').modal();
             }
         });
     });
@@ -153,19 +158,9 @@ $(function() {
             scrollTop: $('#userTable').offset().top
         }, 'slow');
     });
-});
 
-/*****
- * Click the button to delete an administrator:
- *     Call the web service to delete
- *     If success:
- *         Remove the line in the table
- *         Show a success modal
- *     If fail:
- *         Show a fail success
- *****/
-$(document).on('click', '.deleteAdministrator', function() {
-    var id = this.id;
+    $('#deleteAdministratorConfirmationModalConfirm').click(function() {
+        var id = $('#administratorToDeleteId').text();
         $.ajax({
             url: "/deleteAdministrator",
             type: "post",
@@ -175,11 +170,29 @@ $(document).on('click', '.deleteAdministrator', function() {
             success: function(user) {
                 var row = '#row' + id;
                 $(row).remove();
+                $('#deleteAdministratorSuccessModal').modal();
             },
             error: function(user) {
-                alert("La suppression n'est pas encore implémentée");
+                $('#deleteAdministratorErrorModal').modal();
             }
         });
+        $("#deleteAdministratorConfirmationModal").modal("hide");
+    })
+});
+
+/*****
+ * Click the button to delete an administrator:
+ *     Call the web service to delete
+ *     If success:
+ *         Remove the line in the table
+ *         Show a success modal
+ *     If fail:
+ *         Show a fail modal
+ *****/
+$(document).on('click', '.deleteAdministrator', function() {
+    var id = this.id;
+    $("#deleteAdministratorConfirmationModal").modal();
+    $('#administratorToDeleteId').text(id);
 });
 
 /*****
