@@ -18,7 +18,8 @@ $(function() {
             boundary: {
                 width: 150,
                 height: 150
-            }
+            },
+            enableOrientation: true
         });
         $croppedImageList[$id].croppie('bind', {
             url: $url,
@@ -35,7 +36,12 @@ $(function() {
         boundary: {
             width: 150,
             height: 150
-        }
+        },
+        enableOrientation: true
+    });
+    
+    $('#rotateImage').click(function() {
+        $croppedImageAddClub.croppie("rotate", -90);
     });
 
     $('#clickAddClub').click(function() {
@@ -290,6 +296,11 @@ $(document).on('click', '.editClub', function() {
             }
         });
     });
+});
+
+$(document).on("click", ".rotateImage", function() {
+    var id = this.id.substr(11);
+    $croppedImageList[id].croppie("rotate", -90);
 });
 
 function readFile(input) {

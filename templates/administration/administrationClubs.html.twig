@@ -157,6 +157,7 @@
                             </div>
                         </div>
                         <div class="card-body text-center text-dark">
+                            <div class="btn btn-dark mb-1 rotateImage" id="rotateImage{{ club.id }}" data-toggle="tooltip" title="Pivoter"><i class="fas fa-redo-alt"></i></div>
                             <div class="clubImage" id="{{ club.id }}">
                                 <div class="d-none" id="logo{{ club.id }}">{{ club.logo }}</div>
                             </div>
@@ -238,6 +239,7 @@
                         </div>
                     </div>
                         <div class="card-body text-center text-dark">
+                            <div class="btn btn-dark mb-1" id="rotateImage" data-toggle="tooltip" title="Pivoter"><i class="fas fa-redo-alt"></i></div>
                             <div id="addClubImage"></div>
                             <label for="clubImageInputAdd" class="btn btn-dark mb-3">Sélectionner une image</label>
                             <input type="file" class="d-none selectClubImageInput" id="clubImageInputAdd">
