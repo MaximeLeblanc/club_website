@@ -145,21 +145,26 @@
         <table class="table table-bordered table-striped" id="userTable">
             <thead class="thead-dark">
                 <tr>
+                    <th scope="col">Photo</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Photo</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for administrator in administrators %}
                 <tr id="row{{ administrator.id }}">
-                    <td id ="lastName{{ administrator.id }}">{{ administrator.lastName }}</td>
-                    <td id ="name{{ administrator.id }}">{{ administrator.name }}</td>
-                    <td id ="email{{ administrator.id }}">{{ administrator.email }}</td>
-                    <td id ="role{{ administrator.id }}">{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
+                    <td class="text-center" id ="photo{{ administrator.id }}">
+                        {% if administrator.photo %}
+                            <img class="img-admin" src="{{ asset(administrator.photo) }}">
+                        {% endif %}
+                    </td>
+                    <td class="align-middle" id ="lastName{{ administrator.id }}">{{ administrator.lastName }}</td>
+                    <td class="align-middle" id ="name{{ administrator.id }}">{{ administrator.name }}</td>
+                    <td class="align-middle" id ="email{{ administrator.id }}">{{ administrator.email }}</td>
+                    <td class="align-middle" id ="role{{ administrator.id }}">{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
                         Administrateur
                         {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
                         Coach
@@ -167,11 +172,7 @@
                         Utilisateur
                         {% endif %}
                     </td>
-                    <td id ="photo{{ administrator.id }}">{% if administrator.photo %}
-                        <img class="d-block img-responsive" src="{{ asset(administrator.photo) }}">
-                        {% endif %}
-                    </td>
-                    <td>
+                    <td class="align-middle">
                         <i id="{{ administrator.id }}" class="fas fa-edit float-left editAdministrator" style="font-size:24px" data-toggle="tooltip" title="Modifier"></i>
                         <i id="{{ administrator.id }}" class="fas fa-times float-right deleteAdministrator" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
                     </td>

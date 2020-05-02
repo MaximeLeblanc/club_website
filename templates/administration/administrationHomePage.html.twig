@@ -1,0 +1,17 @@
+{# templates/administration/administrationProfile.html.twig #}
+{% extends 'common/base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/administration/profile.js') }}"></script>
+{% endblock %}
+{% block navbar %}
+    {{ include('administration/administrationNavbar.html.twig') }}
+{% endblock %}
+{% block body %}
+    <div class="text-center mt-3">
+        <h3>Gestion de l'accueil</h3>
+    </div>
+</div>
+{% endblock %}

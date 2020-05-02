@@ -10,6 +10,46 @@
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
 {% block body %}
+<div class="modal fade" id="deletePhotoConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deletePhotoConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePhotoConfirmationModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Etes-vous sur de vouloir supprimer la photo ?
+                <input id="administratorToDeleteId" type="text" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="deletePhotoConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editProfileConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="editProfileConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileConfirmationModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Etes-vous sur de vouloir sauvegarder les modifications ?
+                <input id="administratorToDeleteId" type="text" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="editProfileConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row mt-3" id="editProfile">
     <div class="col-md-2"></div>
     <div class="col-12 col-md-8">
@@ -20,6 +60,7 @@
                         <h5 class="text-center">Profil</h5>
                         <form>
                             <div class="text-center mb-3">
+                                <div class="btn btn-dark mb-1" id="rotateImage" data-toggle="tooltip" title="Pivoter"><i class="fas fa-redo-alt"></i></div>
                                 <div id="photo">
                                     <div class="d-none" id="photoUrl">{{ admin.photo }}</div>
                                 </div>
@@ -46,10 +87,10 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="btn btn-dark float-left" id="editProfileButton">Modifier</div>
+                                    <div class="btn btn-dark float-left disabled" id="editProfileButton">Modifier</div>
                                 </div>
                                 <div class="col">
-                                    <div class="btn btn-dark float-right" id="cancelEditProfileButton">Annuler</div>
+                                    <div class="btn btn-dark float-right disabled" id="cancelEditProfileButton">Annuler</div>
                                 </div>
                             </div>
                         </form>
