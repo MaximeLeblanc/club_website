@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use App\Entity\User;
 use App\Entity\Club;
+use App\Entity\Athlete;
 
 class AdministrationController extends AbstractController {
 
@@ -83,6 +84,21 @@ class AdministrationController extends AbstractController {
     }
 
     /**
+     * @Route("/administration/athletes", name="administrationAthletes")
+     */
+    public function administrationAthletes() {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('home');
+        }
+        $athleteRepository = $this->getDoctrine()->getRepository(Athlete::class);
+        $athletes = $athleteRepository->getAllAthletesOrderByNameAsc();
+
+        return $this->render('administration/administrationAthletes.html.twig', [
+            'athletes' => $athletes
+        ]);        
+    }
+
+    /**
      * @Route("/administration/home", name="administrationHomePage")
      */
     public function administrationHomePage() {
@@ -116,6 +132,7 @@ class AdministrationController extends AbstractController {
             ));
             return new Response($message);
         }
+        $phoneNumber = $request->get('phoneNumber');
         $role = $request->get('role');
         if ($role == "Administrateur") {
             $role = "ROLE_SUPER_ADMIN";
@@ -129,6 +146,7 @@ class AdministrationController extends AbstractController {
         $user->setName($name);
         $user->setLastName($lastName);
         $user->setEmail($email);
+        $user->setPhoneNumber($phoneNumber);
         $user->setPassword(uniqid());
         $user->setRole($role);
 
@@ -140,7 +158,6 @@ class AdministrationController extends AbstractController {
         }
         
         $jsonUser[] = $serializer->serialize($user, 'json', ['groups' => 'user']);
-
         // Send email to create a password
         return new JsonResponse($jsonUser);
     }
@@ -162,6 +179,7 @@ class AdministrationController extends AbstractController {
         $name = $request->get('name');
         $lastName = $request->get('lastName');
         $email = $request->get('email');
+        $phoneNumber = $request->get('phoneNumber');
         $role = $request->get('role');
         if ($role === "Administrateur") {
             $role = "ROLE_SUPER_ADMIN";
@@ -175,6 +193,7 @@ class AdministrationController extends AbstractController {
         $user->setName($name);
         $user->setLastName($lastName);
         $user->setEmail($email);
+        $user->setPhoneNumber($phoneNumber);
         $user->setPassword(uniqid());
         $user->setRole($role);
 

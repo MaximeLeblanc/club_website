@@ -25,3 +25,9 @@
 .img-admin {
     max-height: 60px;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }

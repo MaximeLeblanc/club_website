@@ -56,6 +56,12 @@ class User implements UserInterface {
     private $photo;
 
     /**
+     * @ORM\Column(type="string", length=10, unique=false, nullable=true)
+     * @Groups({"user"})
+     */
+    private $phoneNumber;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Club", mappedBy="user")
      * @Groups({"user"})
      */
@@ -168,6 +174,16 @@ class User implements UserInterface {
     public function eraseCredentials() {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): string {
+        return (string) $this->phoneNumber;
     }
 
     /**

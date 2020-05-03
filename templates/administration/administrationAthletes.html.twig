@@ -4,37 +4,37 @@
 <link rel="stylesheet" href="{{ asset('css/administration/administrator.css') }}">
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/administration/administrator.js') }}"></script>
+    <script src="{{ asset('js/administration/athlete.js') }}"></script>
 {% endblock %}
 {% block navbar %}
     {{ include('administration/administrationNavbar.html.twig') }}
 {% endblock %}
 {% block body %}
-    <div class="modal fade" id="deleteAdministratorConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorConfirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteAthleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteAthleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteAdministratorConfirmationModalLabel">Confirmation de suppression</h5>
+                    <h5 class="modal-title" id="deleteAthleteConfirmationModalLabel">Confirmation de suppression</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Etes-vous sur de vouloir supprimer l'administrateur ?
-                    <input id="administratorToDeleteId" type="text" hidden>
+                    <input id="athleteToDeleteId" type="text" hidden>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button id="deleteAdministratorConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
+                    <button id="deleteAthleteConfirmationModalConfirm" type="button" class="btn btn-primary">Confirmer</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorSuccessModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteAthleteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="deleteAthleteSuccessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="deleteAdministratorSuccessModalLabel">Succès !</h5>
+                    <h5 class="modal-title" id="deleteAthleteSuccessModalLabel">Succès !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -48,11 +48,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdministratorErrorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteAthleteErrorModal" tabindex="-1" role="dialog" aria-labelledby="deleteAthleteErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title" id="deleteAdministratorErrorModalLabel">Erreur !</h5>
+                    <h5 class="modal-title" id="deleteAthleteErrorModalLabel">Erreur !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -66,11 +66,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="createAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="createAdministratorSuccessModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createAthleteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="createAthleteSuccessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="createAdministratorSuccessModalLabel">Succès !</h5>
+                    <h5 class="modal-title" id="createAthleteSuccessModalLabel">Succès !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -84,11 +84,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="createAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="createAdministratorErrorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createAthleteErrorModal" tabindex="-1" role="dialog" aria-labelledby="createAthleteErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title" id="createAdministratorErrorModalLabel">Erreur !</h5>
+                    <h5 class="modal-title" id="createAthleteErrorModalLabel">Erreur !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -102,11 +102,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editAdministratorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="editAdministratorSuccessModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editAthleteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="editAthleteSuccessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="editAdministratorSuccessModalLabel">Succès !</h5>
+                    <h5 class="modal-title" id="editAthleteSuccessModalLabel">Succès !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -120,11 +120,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editAdministratorErrorModal" tabindex="-1" role="dialog" aria-labelledby="editAdministratorErrorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editAthleteErrorModal" tabindex="-1" role="dialog" aria-labelledby="editAthleteErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title" id="editAdministratorErrorModalLabel">Erreur !</h5>
+                    <h5 class="modal-title" id="editAthleteErrorModalLabel">Erreur !</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -141,6 +141,37 @@
     <div class="text-center mt-3">
         <h3>Gestion des administrateurs</h3>
     </div>
+    <div class="row mt-3">
+        <div class="col-md-3"></div>
+        <div class="col-12 col-md-6">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recherche par mot" aria-label="Recherche par mot" aria-describedby="searchPerName">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="searchPerName"><i class="fas fa-search" style="font-size:24px" data-toggle="tooltip" title="Rechercher"></i></span>
+                </div>
+            </div>
+            <div class="text-center" style="font-size:14px">
+                Plus de filtres...
+                <i class="fas fa-search-plus" style="font-size:18px" data-toggle="tooltip" title="Plus de filtres"></i>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-12">
+            <div class="d-none">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                Taille
+                                Catégorie
+                                Assurance
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <div class="table-responsive mt-3">
         <table class="table table-bordered table-striped" id="userTable">
             <thead class="thead-dark">
@@ -148,90 +179,94 @@
                     <th scope="col">Photo</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Téléphone</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Clubs</th>
+                    <th scope="col">Date de naissance</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-            {% for administrator in administrators %}
-                <tr id="row{{ administrator.id }}">
-                    <td class="text-center" id ="photo{{ administrator.id }}">
-                        {% if administrator.photo %}
-                            <img class="img-admin" src="{{ asset(administrator.photo) }}" alt="Photo{{ administrator.lastName }}{{ administrator.name }}">
+            {% for athlete in athletes %}
+                <tr id="row{{ athlete.id }}">
+                    <td class="text-center" id ="photo{{ athlete.id }}">
+                        {% if athlete.photo %}
+                            <img class="img-admin" src="{{ asset(athlete.photo) }}">
                         {% endif %}
                     </td>
-                    <td class="align-middle" id ="lastName{{ administrator.id }}">{{ administrator.lastName }}</td>
-                    <td class="align-middle" id ="name{{ administrator.id }}">{{ administrator.name }}</td>
-                    <td class="align-middle" id ="email{{ administrator.id }}">{{ administrator.email }}</td>
-                    <td class="align-middle" id ="phoneNumber{{ administrator.id }}">{{ administrator.phoneNumber }}</td>
-                    <td class="align-middle" id ="role{{ administrator.id }}">{% if (administrator.roles|first) == "ROLE_SUPER_ADMIN" %}
-                        Administrateur
-                        {% elseif (administrator.roles|first) == "ROLE_ADMIN" %}
-                        Coach
-                        {% elseif (administrator.roles|first) == "ROLE_USER" %}
-                        Utilisateur
-                        {% endif %}
-                    </td>
-                    <td class="align-middle" id="clubs{{ administrator.id }}">
-                        <ul>
-                            {% for club in administrator.clubs %}
-                                <li>{{ club.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
+                    <td class="align-middle" id ="lastName{{ athlete.id }}">{{ athlete.lastName }}</td>
+                    <td class="align-middle" id ="name{{ athlete.id }}">{{ athlete.name }}</td>
+                    <td class="align-middle" id ="birthDate{{ athlete.id }}">{{ athlete.birthDate }}</td>
                     <td class="align-middle">
-                        <i id="{{ administrator.id }}" class="fas fa-edit float-left editAdministrator" style="font-size:24px" data-toggle="tooltip" title="Modifier"></i>
-                        <i id="{{ administrator.id }}" class="fas fa-times float-right deleteAdministrator" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
+                        <i id="{{ athlete.id }}" class="fas fa-expand-arrows-alt float-left showAthlete" style="font-size:24px" data-toggle="tooltip" title="Voir les données"></i>
+                        <i id="{{ athlete.id }}" class="fas fa-times float-right deleteAthlete" style="font-size:24px" data-toggle="tooltip" title="Supprimer"></i>
                     </td>
                 </tr> 
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="btn btn-dark" id="clickAddAdministrator" data-toggle="tooltip" title="Ajouter un administrateur">
+    <div class="btn btn-dark mt-3" id="clickAddAthlete">
         <i class="fas fa-user-plus plusButton"></i>
     </div>
-    <div class="row d-none mt-3" id="addAdministrator">
+    <div class="row mt-3" id="addAdthlete">
         <div class="col-md-2"></div>
         <div class="col-12 col-md-8">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
                         <td>
-                            <h5 class="text-center">Ajouter un administrateur</h5>
+                            <h5 class="text-center">Ajouter un Athlète</h5>
                             <form>
-                                <div class="form-group">
-                                    <label for="addAdministratorName">Prénom</label>
-                                    <input type="text" class="form-control" id="addAdministratorName" placeholder="Prénom">
+                                <div class="text-center mb-3">
+                                    <div class="btn btn-dark mb-1 disabled" id="rotateImage" data-toggle="tooltip" title="Pivoter"><i class="fas fa-redo-alt"></i></div>
+                                    <div id="photo">
+                                        <div class="d-none" id="photoUrl"></div>
+                                    </div>
+                                    <label for="addAthleteImageInput" class="btn btn-dark mb-1">Sélectionner une photo</label>
+                                    <input type="file" class="d-none" id="addAthleteImageInput">
+                                    <br />
+                                    <div class="btn btn-dark disabled" id="addAthleteDeleteImage">Supprimer la photo</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="addAdministratorLastName">Nom</label>
-                                    <input type="text" class="form-control" id="addAdministratorLastName" placeholder="Nom">
+                                    <label for="addAthleteName">Prénom</label>
+                                    <input type="input" class="form-control" id="addAthleteName" placeholder="Prénom">
                                 </div>
                                 <div class="form-group">
-                                    <label for="addAdministratorEmail">Email</label>
-                                    <input type="email" class="form-control" id="addAdministratorEmail" placeholder="Email">
+                                    <label for="addAthleteLastName">Nom</label>
+                                    <input type="input" class="form-control" id="addAthleteLastName" placeholder="Nom">
                                 </div>
                                 <div class="form-group">
-                                    <label for="addAdministratorPhoneNumber">Téléphone</label>
-                                    <input type="tel" class="form-control" id="addAdministratorPhoneNumber" placeholder="Téléphone" pattern="[0-9]{10}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="addAdministratorRole">Role</label>
-                                    <select id="addAdministratorRole" class="form-control">
-                                        <option value="Coach" selected>Coach</option>
-                                        <option value="Administrateur">Administrateur</option>
+                                    <label for="addAthleteSex">Sexe</label>
+                                    <select id="addAthleteSex" class="form-control">
+                                        <option value="Femme" selected>Femme</option>
+                                        <option value="Homme">Homme</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="addAthleteLastName">Date de naissance</label>
+                                    <input type="date" class="form-control" id="addAthleteBirthDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAthleteAddress">Adresse</label>
+                                    <input type="email" class="form-control" id="addAthleteAddress" placeholder="Adresse">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAthletePhoneNumber1">Numéro de téléphone</label>
+                                    <input type="email" class="form-control" id="addAthletePhoneNumber" placeholder="Numéro de téléphone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAthletePhoneNumber">Numéro de téléphone parents</label>
+                                    <input type="email" class="form-control" id="addAthletePhoneNumber" placeholder="Numéro de téléphone parents">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addAthleteEmail">Email</label>
+                                    <input type="email" class="form-control" id="addAthleteEmail" placeholder="Email">
+                                </div>
+                                
                                 <div class="row">
                                     <div class="col">
-                                        <div class="btn btn-dark float-left" id="addAdministratorButton">Ajouter</div>
+                                        <div class="btn btn-dark float-left" id="addAthleteButton">Ajouter</div>
                                     </div>
                                     <div class="col">
-                                        <div class="btn btn-dark float-right" id="cancelAdministratorButton">Annuler</div>
+                                        <div class="btn btn-dark float-right" id="cancelAthleteButton">Annuler</div>
                                     </div>
                                 </div>
                             </form>
@@ -242,7 +277,7 @@
         </div>
         <div class="col-md-2"></div>
     </div>
-    <div class="row d-none mt-3" id="editAdministrator">
+    <div class="row d-none mt-3" id="editAthlete">
         <div class="col-md-2"></div>
         <div class="col-12 col-md-8">
             <table class="table table-bordered">
@@ -251,36 +286,32 @@
                         <td>
                             <h5 class="text-center">Modifier un administrateur</h5>
                             <form>
-                                <input type="input" class="d-none" id="editAdministratorId">
+                                <input type="input" class="d-none" id="editAthleteId">
                                 <div class="form-group">
-                                    <label for="editAdministratorName">Prénom</label>
-                                    <input type="text" class="form-control" id="editAdministratorName" placeholder="Prénom">
+                                    <label for="editAthleteName">Prénom</label>
+                                    <input type="input" class="form-control" id="editAthleteName" placeholder="Prénom">
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAdministratorLastName">Nom</label>
-                                    <input type="text" class="form-control" id="editAdministratorLastName" placeholder="Nom">
+                                    <label for="editAthleteLastName">Nom</label>
+                                    <input type="input" class="form-control" id="editAthleteLastName" placeholder="Nom">
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAdministratorEmail">Email</label>
-                                    <input type="email" class="form-control" id="editAdministratorEmail" placeholder="Email">
+                                    <label for="editAthleteEmail">Email</label>
+                                    <input type="email" class="form-control" id="editAthleteEmail" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAdministratorPhoneNumber">Téléphone</label>
-                                    <input type="tel" class="form-control" id="editAdministratorPhoneNumber" placeholder="Téléphone" pattern="[0-9]{10}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="editAdministratorRole">Role</label>
-                                    <select id="editAdministratorRole" class="form-control">
+                                    <label for="editAthleteRole">Role</label>
+                                    <select id="editAthleteRole" class="form-control">
                                         <option value="Coach" selected>Coach</option>
                                         <option value="Administrateur">Administrateur</option>
                                     </select>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="btn btn-dark float-left" id="editAdministratorButton">Modifier</div>
+                                        <div class="btn btn-dark float-left" id="editAthleteButton">Modifier</div>
                                     </div>
                                     <div class="col">
-                                        <div class="btn btn-dark float-right" id="cancelEditAdministratorButton">Annuler</div>
+                                        <div class="btn btn-dark float-right" id="cancelEditAthleteButton">Annuler</div>
                                     </div>
                                 </div>
                             </form>
